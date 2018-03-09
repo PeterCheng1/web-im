@@ -115,7 +115,7 @@ module.exports = {
             options: {
               formatter: eslintFormatter,
               eslintPath: require.resolve('eslint'),
-              
+              useEslintrc: true
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -173,8 +173,13 @@ module.exports = {
                   // https://github.com/facebookincubator/create-react-app/issues/2677
                   ident: 'postcss',
                   plugins: () => [
+                    require("postcss-import"),
+                    require('postcss-current-selector') ,
+                    require('postcss-nested-ancestors'),
+                    require('postcss-nested'),
                     require('postcss-flexbugs-fixes'),
-                    autoprefixer({
+                    require('postcss-simple-vars'),
+                     autoprefixer({
                       browsers: [
                         '>1%',
                         'last 4 versions',
@@ -183,6 +188,7 @@ module.exports = {
                       ],
                       flexbox: 'no-2009',
                     }),
+                    
                   ],
                 },
               },
