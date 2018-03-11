@@ -1,0 +1,46 @@
+/*
+    Sign.css
+    author:sheldonyee
+    github:petercheng1
+*/
+
+[i="webim-LoginHeader"] {
+    position:absolute;
+    top:200px;
+    right:50%;
+    transform:translateX(50%);
+    .webim-header-item{
+        width:290px;
+        margin-bottom:5px;
+        &::after{
+            display:block;
+            clear:both;
+            content:" ";
+        }
+        .webim-login,.webim-sign{
+            cursor:pointer;
+            font-size:30px;
+            color:rgba(255,255,255,.7);
+            transition:all .3s;
+            &:hover{
+                color:rgba(255,255,255,.9);
+            }
+        }
+        .webim-login{
+            float:left;
+        }
+        .webim-sign{
+            float:right;
+        }
+    }
+    .webim-bottomLine{
+        position:absolute;
+        width: 60px;
+        border-bottom: 2px solid rgba(255,255,255,.7);
+        transition:all .5s;
+        left:0px;
+        &.webim-sign{
+            left:231px !important;
+        }
+    }
+}

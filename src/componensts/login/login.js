@@ -14,10 +14,10 @@ class Login extends Component {
         return (
             <div className="webim-login-wrapper" i="webim-login-wrapper">
                 <div className="webim-loginName-wrapper">
-                    <input type="text" placeHolder="账号" autoFocus/>
+                    <input type="text" placeHolder="登陆账号" autoFocus/>
                 </div>
                 <div className="webim-password-wrapper">
-                    <input type="password"  placeHolder="密码"/>
+                    <input type="password"  placeHolder="登陆密码"/>
                 </div>
                 <div className="webim-login-btn">
                     <i className="iconfont loginBtn">&#xe62e;</i>

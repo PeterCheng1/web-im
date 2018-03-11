@@ -5,13 +5,13 @@
 */
 [i="webim-login-wrapper"]{
     position:absolute;
-    top:230px;
+    top:280px;
     right:50%;
     transform:translateX(50%);
     .webim-loginName-wrapper,.webim-password-wrapper{
         input{
             margin-top:30px;
-            width:250px;
+            width:280px;
             border:0px;
             background:rgba(255,255,255,.2);
             padding:10px;

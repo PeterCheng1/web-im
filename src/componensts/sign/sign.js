@@ -14,10 +14,10 @@ class Sign extends Component {
         return (
             <div className="webim-Sign-wrapper" i="webim-Sign-wrapper">
                 <div className="webim-SignName-wrapper">
-                    <input type="text" placeHolder="账号" autoFocus/>
+                    <input type="text" placeHolder="注册账号" autoFocus/>
                 </div>
                 <div className="webim-password-wrapper">
-                    <input type="password"  placeHolder="密码"/>
+                    <input type="password"  placeHolder="注册密码"/>
                 </div>
                 <div className="webim-Sign-btn">
                     <i className="iconfont SignBtn">&#xe62e;</i>

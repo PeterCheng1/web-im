@@ -81,7 +81,7 @@ body{
         .logo-wrapper{
             position:absolute;
             transform:translateX(50%);
-            right:50%;
+            right:48%;
             top:100px;  
             min-width:400px;
             .webim-logo{
@@ -98,6 +98,9 @@ body{
                 color: rgba(255,255,255,.68);
             }
         }
+    }
+    .webim-btn-wrapper{
+
     }
 }
 

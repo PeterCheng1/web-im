@@ -8,6 +8,8 @@
 
 import React ,{Component} from 'react';
 import WebIMLogin from '../../componensts/login/login'
+import WebIMSign from '../../componensts/sign/sign'
+import LoginHeader from '../../componensts/loginHeader/header'
 import pageLogo from '../../assets/images/logo/logo.png'
 import './index.css';
 class LoginPage extends Component {
@@ -31,6 +33,7 @@ class LoginPage extends Component {
                             <span className="webim-logoName">OWL-WebIM</span>
                         </div>
                         <div className="webim-btn-wrapper">
+                            <LoginHeader />
                             <WebIMLogin />
                         </div>
                     </div>
