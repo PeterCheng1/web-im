@@ -1,0 +1,48 @@
+/*
+    login.css
+    author:sheldonyee
+    github:petercheng1
+*/
+[i="webim-login-wrapper"]{
+    position:absolute;
+    top:230px;
+    right:50%;
+    transform:translateX(50%);
+    .webim-loginName-wrapper,.webim-password-wrapper{
+        input{
+            margin-top:30px;
+            width:250px;
+            border:0px;
+            background:rgba(255,255,255,.2);
+            padding:10px;
+            color:rgba(255,255,255,.8);
+            font-size:15px;
+            border-radius:20px;
+            outline: none;
+            &::placeholder{
+                color:rgba(255,255,255,.8);
+                text-align:center;
+            }
+        }
+    }
+    .webim-login-btn{
+        width:50px;
+        height:50px;
+        border-radius:100%;
+        text-align:center;
+        z-index: 1;
+        position:relative;
+        cursor:pointer;
+        background:rgba(255,255,255,.2);
+        border-radius:100%;
+        transition:all .3s;
+        margin:80px auto;
+        &:hover{
+            background:rgba(255,255,255,.5);
+        }
+        .loginBtn{
+            line-height:50px;
+            text-align:center;
+        }
+    }
+}

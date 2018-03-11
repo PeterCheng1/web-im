@@ -1,11 +1,11 @@
 import bgUrl from  '../../assets/images/aurora/aurora4.jpg'
 
 export const particlesStyle = {
-    width: '100%',
-    height:'100%',
     backgroundSize:'cover',
     backgroundImage:`url(${bgUrl})`,
-    backgroundPosition:'center'
+    backgroundPosition:'center',
+    width: '100%',
+    height:'100%',
 }
 
 export const ParticlesConfig ={
