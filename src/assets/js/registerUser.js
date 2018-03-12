@@ -10,7 +10,6 @@ export const registerUser = (opt) => {
             onError && onError()
             reject(err)
         }
-        console.log(opt)
         window.conn.registerUser(opt);
     })
 }

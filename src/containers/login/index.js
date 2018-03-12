@@ -12,6 +12,7 @@ import WebIMSign from '@components/sign/sign'
 import LoginHeader from '@components/loginHeader/header'
 import pageLogo from '@assets/images/logo/logo.png'
 import './index.css';
+import 'antd/dist/antd.css';  // or 'antd/dist/antd.less'
 class LoginPage extends Component {
     constructor (props) { 
         super(props);
@@ -25,6 +26,13 @@ class LoginPage extends Component {
             login : (val === 'login'? true: false)
         })
     }
+
+    registerSuccess = () =>{
+        this.setState({
+            login:true
+        })
+        this.loginHeader.loginState()
+    }
     render () {
         return (
                 <div>
@@ -35,9 +43,10 @@ class LoginPage extends Component {
                             <img className="webim-logo" src={pageLogo} />
                             <span className="webim-logoName">OWL-WebIM</span>
                         </div>
+                        
                         <div className="webim-btn-wrapper">
-                            <LoginHeader onLoginStateChange={this.LoginStateChange} />
-                            {this.state.login ? <WebIMLogin /> : <WebIMSign/>}
+                            <LoginHeader ref={header => this.loginHeader = header} onLoginStateChange={this.LoginStateChange} />
+                            {this.state.login ? <WebIMLogin /> : <WebIMSign onRegisterSuccess={this.registerSuccess}/>}
                         </div>
                     </div>
                 </div>

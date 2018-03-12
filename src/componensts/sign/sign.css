@@ -19,6 +19,7 @@
             font-size:15px;
             border-radius:20px;
             outline: none;
+            text-align:center;
             &::placeholder{
                 color:rgba(255,255,255,.8);
                 text-align:center;

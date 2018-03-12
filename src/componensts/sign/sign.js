@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import '../../assets/iconfonts/iconfont.css';
 import './sign.css';
 import {registerUser} from '@assets/js/registerUser';
+import { message } from 'antd';
+import PropTypes from 'prop-types';
+
 class Sign extends Component {
     constructor (props) {
         super(props);
@@ -40,9 +43,17 @@ class Sign extends Component {
             apiUrl: WebIM.config.apiURL
           };  
           registerUser(options).then(r=>{
-              console.log('success');
+              message.success('注册成功',1200) 
+              this.props.onRegisterSuccess()
           }).catch(e=>{
-              console.log(e);
+              let {error} = JSON.parse(e.data)
+              switch(error){
+                case 'duplicate_unique_property_exists':
+                    message.error('此用户名已被其他用户使用！！',1200);
+                    break;
+                default:
+                    message.error('注册出现错误',1200);
+              }
           })
     }
     render () {
@@ -64,6 +75,10 @@ class Sign extends Component {
             </div>
         )
     }
+}
+
+Sign.propTypes = {
+    onRegisterSuccess:PropTypes.func.isRequired
 }
 
 export default Sign;
