@@ -14,11 +14,11 @@ WebIM.config = {
     /*
      * Backend REST API URL
      */
-    apiURL: (location.protocol === 'https:' ? 'https:' : 'http:') + '//a1.easemob.com',
+    apiURL: (window.location.protocol === 'https:' ? 'https:' : 'http:') + '//a1.easemob.com',
     /*
      * Application AppKey
      */
-    appkey: 'easemob-demo#chatdemoui',
+    appkey: '1101180312099081#webim-owl',
 
     /*
      * Whether to use wss

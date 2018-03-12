@@ -39,8 +39,9 @@
         border-bottom: 2px solid rgba(255,255,255,.7);
         transition:all .5s;
         left:0px;
+        will-change:position;
         &.webim-sign{
-            left:231px !important;
+            left:231px;
         }
     }
 }

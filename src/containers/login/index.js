@@ -7,10 +7,10 @@
 */
 
 import React ,{Component} from 'react';
-import WebIMLogin from '../../componensts/login/login'
-import WebIMSign from '../../componensts/sign/sign'
-import LoginHeader from '../../componensts/loginHeader/header'
-import pageLogo from '../../assets/images/logo/logo.png'
+import WebIMLogin from '@components/login/login'
+import WebIMSign from '@components/sign/sign'
+import LoginHeader from '@components/loginHeader/header'
+import pageLogo from '@assets/images/logo/logo.png'
 import './index.css';
 class LoginPage extends Component {
     constructor (props) { 
@@ -19,8 +19,11 @@ class LoginPage extends Component {
             login:true
         }
     }
-    initParticleBg() {
 
+    LoginStateChange = (val) =>{
+        this.setState({
+            login : (val === 'login'? true: false)
+        })
     }
     render () {
         return (
@@ -33,8 +36,8 @@ class LoginPage extends Component {
                             <span className="webim-logoName">OWL-WebIM</span>
                         </div>
                         <div className="webim-btn-wrapper">
-                            <LoginHeader />
-                            <WebIMLogin />
+                            <LoginHeader onLoginStateChange={this.LoginStateChange} />
+                            {this.state.login ? <WebIMLogin /> : <WebIMSign/>}
                         </div>
                     </div>
                 </div>
