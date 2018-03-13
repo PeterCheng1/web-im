@@ -6,11 +6,14 @@ import {loginUser} from '@assets/js/loginUser'
 import {connect} from 'react-redux'
 import {USER_HAD_LOGIN} from '../../data/actions/actionTypes'
 
-const createUserAction = (playload) =>{
+const createUserAction = (user) =>{
     let action = {
         type:USER_HAD_LOGIN,
-        playload
+        playload:{
+            user
+        }
     }
+    return action;
 }
 
 const mapStateToProps = (state) =>{
@@ -61,10 +64,11 @@ class Login extends Component {
         })
         loginUser(options)
         .then(r=>{
-            console.log(r);
+            let {user} = r;
             this.setState({
                 loginning:false
             })
+            this.props.loginSuccess(user); 
         })
         .catch(e=>{
             message.error('可能账号或者密码填写错误！－。－');

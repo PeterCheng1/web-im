@@ -1,6 +1,5 @@
 {
 	"presets": [
       "react-app"
-    ],
-    "plugins": ["transform-decorators"]
+    ]
 }
