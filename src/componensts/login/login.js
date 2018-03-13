@@ -16,19 +16,20 @@ const createUserAction = (user) =>{
     return action;
 }
 
-const mapStateToProps = (state) =>{
-    return {
-        user : state.login.user
-    }
-}
-
-const mapDispatchToProps = (dispatch,getState) => {
-    return {
-        loginSuccess : playload=>{
-            return dispatch(createUserAction(playload))
+@connect(
+    state=>{
+        return {
+            user : state.login.user
+        } 
+    },
+    (dispatch,getState)=>{
+        return {
+            loginSuccess : playload=>{
+                return dispatch(createUserAction(playload))
+            }           
         }
     }
-}
+)
 class Login extends Component {
     constructor (props) {
         super(props);
@@ -101,7 +102,4 @@ class Login extends Component {
     }
 }
 
-const LoginWrapper = connect(mapStateToProps,mapDispatchToProps)(Login);
-
-
-export default LoginWrapper;
+export default Login;
