@@ -25,10 +25,17 @@
             border-radius:20px;
             outline: none;
             text-align:center;
+            -moz-appearance:none; /* Firefox */
+            -webkit-appearance:none; /* Safari 和 Chrome */
             &::placeholder{
                 color:rgba(255,255,255,.8);
                 text-align:center;
             }
+        }
+        input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {  
+            -webkit-transition-delay: 99999s;  
+            -webkit-transition: color 99999s ease-out, background-color 99999s ease-out;  
+            /* -webkit-box-shadow: 0 0 0px 1000px white inset; */  
         }
     }
     .webim-Sign-btn{

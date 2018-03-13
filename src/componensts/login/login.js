@@ -3,8 +3,29 @@ import '@assets/iconfonts/iconfont.css';
 import './login.css';
 import { message } from 'antd';
 import {loginUser} from '@assets/js/loginUser'
-import { Spin } from 'antd';
+import {connect} from 'react-redux'
+import {USER_HAD_LOGIN} from '../../data/actions/actionTypes'
 
+const createUserAction = (playload) =>{
+    let action = {
+        type:USER_HAD_LOGIN,
+        playload
+    }
+}
+
+const mapStateToProps = (state) =>{
+    return {
+        user : state.login.user
+    }
+}
+
+const mapDispatchToProps = (dispatch,getState) => {
+    return {
+        loginSuccess : playload=>{
+            return dispatch(createUserAction(playload))
+        }
+    }
+}
 class Login extends Component {
     constructor (props) {
         super(props);
@@ -76,4 +97,7 @@ class Login extends Component {
     }
 }
 
-export default Login;
+const LoginWrapper = connect(mapStateToProps,mapDispatchToProps)(Login);
+
+
+export default LoginWrapper;

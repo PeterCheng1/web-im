@@ -7,21 +7,7 @@
 //     }
 // }
 
-import {USER_HAD_LOGIN} from './actionTypes';
-
-export const createAction = function(actionType,...state){
-    return (...stateVal)=>{
-        let action = {
-            type : actionType,
-            payload : {}
-        };
-        state.forEach((item,index)=>{
-            action.payload[item] = stateVal[index];
-        })
-        return action;
-    }
-}
-
+import {USER_HAD_LOGIN,createAction} from './actionTypes';
 
 export function LoginUser(opts) {
     return (dispatch,getState)=>{
