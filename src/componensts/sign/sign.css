@@ -3,6 +3,11 @@
     author:sheldonyee
     github:petercheng1
 */
+@keyframes rotating{
+    from{transform:rotate(0)}
+    to{transform:rotate(360deg)}
+}
+
 [i="webim-Sign-wrapper"]{
     position:absolute;
     top:280px;
@@ -44,6 +49,10 @@
         .SignBtn{
             line-height:50px;
             text-align:center;
+        }
+        .loginning{
+            display:inline-block;
+            animation:rotating 1.2s ease infinite;
         }
     }
 }

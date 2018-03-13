@@ -11,7 +11,8 @@ class Sign extends Component {
         this.state = {
             username:'',
             password:'',
-            nickname:''
+            nickname:'',
+            loading:false
         }
     }
 
@@ -42,18 +43,27 @@ class Sign extends Component {
             appKey: WebIM.config.appkey,
             apiUrl: WebIM.config.apiURL
           };  
+            this.setState({
+                loginning:true
+            })
           registerUser(options).then(r=>{
-              message.success('注册成功',1200) 
+              message.success('注册成功') 
               this.props.onRegisterSuccess()
+              this.setState({
+                    loginning:false
+                })
           }).catch(e=>{
               let {error} = JSON.parse(e.data)
               switch(error){
                 case 'duplicate_unique_property_exists':
-                    message.error('此用户名已被其他用户使用！！',1200);
+                    message.error('此用户名已被其他用户使用！！');
                     break;
                 default:
-                    message.error('注册出现错误',1200);
+                    message.error('注册出现错误');
               }
+                this.setState({
+                    loginning:false
+                })
           })
     }
     render () {
@@ -69,9 +79,15 @@ class Sign extends Component {
                 <div className="webim-name-wrapper">
                     <input type="text" value={state.nickname} onChange={this.nameChange}  placeholder="登陆昵称"/>
                 </div>
-                <div className="webim-Sign-btn" onClick={this.register}>
-                    <i className="iconfont SignBtn">&#xe62e;</i>
-                </div>
+                {!state.loading ? 
+                    <div className="webim-Sign-btn" onClick={this.register}>
+                        <i className="iconfont SignBtn">&#xe62e;</i>
+                    </div>
+                    :
+                    <div className="webim-Sign-btn">
+                        <i className="iconfont SignBtn loginning">&#xe615;</i>
+                    </div>
+                }
             </div>
         )
     }
