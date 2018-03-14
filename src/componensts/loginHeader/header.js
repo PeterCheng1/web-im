@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './header.css';
 import classnames from 'classnames';
+import {safeRender} from '@assets/js/safeRender.js';
+
+@safeRender
 class LoginHeader extends Component {
     constructor(props) {
         super(props);

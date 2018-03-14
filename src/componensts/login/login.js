@@ -5,6 +5,7 @@ import { message } from 'antd';
 import {loginUser} from '@assets/js/loginUser'
 import {connect} from 'react-redux'
 import {USER_HAD_LOGIN} from '../../data/actions/actionTypes'
+import {safeRender} from '@assets/js/safeRender.js';
 
 const createUserAction = (user) =>{
     let action = {
@@ -16,6 +17,7 @@ const createUserAction = (user) =>{
     return action;
 }
 
+@safeRender
 @connect(
     state=>{
         return {

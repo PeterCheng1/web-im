@@ -4,7 +4,9 @@ import './sign.css';
 import {registerUser} from '@assets/js/registerUser';
 import { message } from 'antd';
 import PropTypes from 'prop-types';
+import {safeRender} from '@assets/js/safeRender.js';
 
+@safeRender
 class Sign extends Component {
     constructor (props) {
         super(props);

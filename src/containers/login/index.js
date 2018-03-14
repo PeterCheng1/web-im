@@ -13,6 +13,10 @@ import LoginHeader from '@components/loginHeader/header'
 import pageLogo from '@assets/images/logo/logo.png'
 import './index.css';
 import 'antd/dist/antd.css';  // or 'antd/dist/antd.less'
+import {safeRender} from '@assets/js/safeRender.js';
+
+@safeRender
+
 class LoginPage extends Component {
     constructor (props) { 
         super(props);
