@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import LoginPage from './containers/login/index'
 import ChatPage from './containers/chat/chat'
 import {Provider} from 'react-redux';
 import store from './data/create'
 import {safeRender} from '@assets/js/safeRender'
-import { Router, Route, Link,hashHistory } from 'react-router'
+import { Router, Route,hashHistory } from 'react-router'
 /*
   路由:
   / ==> 登陆注册页面

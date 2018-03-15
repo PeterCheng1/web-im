@@ -6,6 +6,7 @@ import {loginUser} from '@assets/js/loginUser'
 import {connect} from 'react-redux'
 import {USER_HAD_LOGIN} from '../../data/actions/actionTypes'
 import {safeRender} from '@assets/js/safeRender.js';
+import {hashHistory} from 'react-router'
 
 const createUserAction = (user) =>{
     let action = {
@@ -44,13 +45,13 @@ class Login extends Component {
 
     accountChange = (ele) =>{
         this.setState({
-            name:ele.target.value
+            name:ele.target.value.trim()
         })
     }
 
     passwordChange = (ele) =>{
         this.setState({
-            password:ele.target.value
+            password:ele.target.value.trim()
         })        
     }
 
@@ -72,6 +73,7 @@ class Login extends Component {
                 loginning:false
             })
             this.props.loginSuccess(user); 
+            hashHistory.push('/chat')
         })
         .catch(e=>{
             message.error('可能账号或者密码填写错误！－。－');

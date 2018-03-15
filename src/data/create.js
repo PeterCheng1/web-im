@@ -7,9 +7,7 @@
  * combineReducer ==> applyMiddlers ==> createStore === store
  */
 
-'use strict';
-
-import {compose, createStore, combineReducers, applyMiddleware} from 'redux';
+import {/*compose*/createStore, combineReducers, applyMiddleware} from 'redux';
 
 import loginReducer from './reducers/login'
 

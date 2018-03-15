@@ -10,7 +10,7 @@ export const loginUser = (opt) =>{
             resolve(token);
         }
         opt.error = (error) => {
-            // onError && onError()
+            onError && onError()
             reject(error)
         }
         window.conn.open(opt);

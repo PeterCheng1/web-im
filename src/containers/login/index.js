@@ -44,7 +44,7 @@ class LoginPage extends Component {
                     </div>
                     <div className="webim-login-msg">
                         <div className="logo-wrapper">
-                            <img className="webim-logo" src={pageLogo} />
+                            <img className="webim-logo" src={pageLogo} alt="OWL-IM-LOGO" />
                             <span className="webim-logoName">OWL-WebIM</span>
                         </div>
                         

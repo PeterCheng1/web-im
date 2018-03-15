@@ -20,13 +20,13 @@ class Sign extends Component {
 
     accountChange = (ele) =>{
         this.setState({
-            username:ele.target.value
+            username:ele.target.value.trim()
         })
     }
 
     passwordChange = (ele) =>{
         this.setState({
-            password:ele.target.value
+            password:ele.target.value.trim()
         })        
     }
     
