@@ -1,0 +1,12 @@
+[i="chat-wrapper"] {
+    position:relative;
+    .chat-panel{
+        position:relative;
+        z-index:50;
+        border:1px solid #fff;
+        width:888px;
+        height:600px;
+        margin:88px auto;
+    }
+}
+
