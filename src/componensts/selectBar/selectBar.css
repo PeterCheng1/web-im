@@ -1,5 +1,46 @@
 [i="SelectBar-wrapper"] {
     height: 100%;
     width:120px;
-    background:#fff;
+    background:rgba(72,71,72,.7);
+    padding-top:15px;
+    position:relative;
+    .avatar-wrapper{
+        width: 55px;
+        height: 55px;
+        margin: 0 auto;
+        border-radius:5px;
+        img{
+            width:100%;
+            height:100%;
+            border-radius:5px;
+        }
+    }
+    .single-chat,.group-chat{
+        margin-top:10px;
+        text-align:center;
+        .iconfont{
+            cursor:pointer;
+            text-align:center;
+            font-size:40px;
+            color:#7b7a7b;
+            &.active{
+                color:#40b944;
+            }
+        }
+    }
+    .group-chat{
+        margin-top:0px;
+    }
+    .setting-container{
+        position:absolute;
+        width:100%;
+        text-align:center;
+        bottom:10px;
+        .iconfont{
+            cursor:pointer;
+            text-align:center;
+            font-size:40px;
+            color:#7b7a7b;
+        }        
+    }
 }

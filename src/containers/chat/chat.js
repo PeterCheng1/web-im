@@ -8,7 +8,7 @@ class Chat extends Component {
     render() {
         return (
             <div className="chat" i="chat-wrapper">
-                <div className = "webim-login-bg"> 
+                <div className = "webim-chat-bg"> 
                 </div>
                 <div className="chat-panel">
                     <SelectBar />
