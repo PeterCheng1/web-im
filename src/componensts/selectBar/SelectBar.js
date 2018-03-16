@@ -9,7 +9,8 @@ class SelectBar extends Component {
         super(props);
         this.state = {
             userAvatar:this.getAvatar(),
-            chatModel:'single'//group single
+            chatModel:'single',//group single
+            openSetPanel: false
         }
     }
 
@@ -25,6 +26,14 @@ class SelectBar extends Component {
             chatModel : type
         })
     }
+
+    openPanel = () =>{
+        this.setState((prevState,props)=>{
+            return {
+                openSetPanel: !prevState.openSetPanel
+            }
+        })
+    }
     render() {
         let {state} = this;
         let singleClassName = classnames('iconfont','icon-chat',{
@@ -32,6 +41,9 @@ class SelectBar extends Component {
         })
         let groupClassNamr = classnames('iconfont','icon-LC_icon_chat_fill',{
             active:state.chatModel === 'group' ? true : false            
+        })
+        let settingPanelClassName = classnames('setting-btn-wrapper',{
+            active:state.openSetPanel
         })
         return (<div i="SelectBar-wrapper">
                     <div className="avatar-wrapper">
@@ -43,8 +55,22 @@ class SelectBar extends Component {
                     <div className="group-chat">
                         <span className={groupClassNamr} onClick={e=>this.changeChatModel('group',e)}></span>     
                     </div>
-                    <div className="setting-container">
-                        <span className="iconfont icon-set1"></span>                         
+                    <div className="setting-container"> 
+                        <span className="iconfont icon-set1"  onClick={this.openPanel}></span>                         
+                    </div>
+                    <div className={settingPanelClassName}>
+                        <div className="add-friends">
+                            <span className="iconfont icon-icon-"></span>                         
+                            <span className="title">添加好友</span>                         
+                        </div>
+                        <div className="del-friends">
+                            <span className="iconfont icon-shanchu1"></span>                         
+                            <span className="title">移除好友</span>                                                     
+                        </div>
+                        <div className="logout">
+                            <span className="iconfont icon-tuichu1"></span>                         
+                            <span className="title">退出登陆</span>                                                     
+                        </div>
                     </div>
                 </div>)
     }

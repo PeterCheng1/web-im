@@ -1,6 +1,5 @@
 export const avatarLists = [
     'http://cdn103.img.lizhi.fm/album_cover/2016/11/02/2565925642943307804_320x320.jpg',
-    'http://a3.topitme.com/3/2c/b1/117160463412cb12c3o.jpg',
     'https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike180%2C5%2C5%2C180%2C60/sign=12432f4552afa40f28cbc68fca0d682a/8601a18b87d6277fff9caa4f20381f30e924fc3f.jpg',
     'https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/crop%3D33%2C0%2C1171%2C773%3Bc0%3Dbaike150%2C5%2C5%2C150%2C50/sign=3efd2f3fdb00baa1ae631dfb7a238a3e/7aec54e736d12f2e18f84cb345c2d56284356860.jpg',
     'http://p7.qhimg.com/t0176638481d5ecb719.jpg?size=995x561',
