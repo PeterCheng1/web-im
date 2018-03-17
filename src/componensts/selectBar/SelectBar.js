@@ -3,6 +3,7 @@ import {safeRender} from '@assets/js/safeRender'
 import './selectBar.css';
 import {avatarLists} from '@assets/js/avatar.js'
 import classnames from 'classnames';
+import { Modal ,Input} from 'antd';
 @safeRender
 class SelectBar extends Component {
     constructor(props) {
@@ -10,7 +11,9 @@ class SelectBar extends Component {
         this.state = {
             userAvatar:this.getAvatar(),
             chatModel:'single',//group single
-            openSetPanel: false
+            openSetPanel: false,
+            addFriendModel:false,
+            friendName:'sheldon2001'
         }
     }
 
@@ -19,6 +22,19 @@ class SelectBar extends Component {
         let index = window.parseInt(Math.random()*length);
         let avatar = avatarLists[index]
         return avatar;
+    }
+
+    openModel = (type)=>{
+        switch (type) {
+            case 'add':
+                this.setState({
+                    openSetPanel:false,
+                    addFriendModel : true
+                })
+                break;
+            default:
+                break;
+        }
     }
 
     changeChatModel = (type) =>{
@@ -33,6 +49,34 @@ class SelectBar extends Component {
                 openSetPanel: !prevState.openSetPanel
             }
         })
+    }
+    
+    addFriendComfirm = ()=>{
+        let {friendName} = this.state;
+        window.conn.subscribe({
+            to: friendName.trim(),
+            message: '可以加个好友吗?'
+        });
+    }
+
+    cancelAddFriendModel = () =>{
+        this.setState({
+            friendName:'',
+            addFriendModel:false
+        })
+    }
+
+    inputChange = (type,ele) =>{
+        switch (type) {
+            case 'add':
+                this.setState({
+                    friendName :ele.target.value.trim()
+                })
+                break;
+        
+            default:
+                break;
+        }
     }
     render() {
         let {state} = this;
@@ -59,7 +103,7 @@ class SelectBar extends Component {
                         <span className="iconfont icon-set1"  onClick={this.openPanel}></span>                         
                     </div>
                     <div className={settingPanelClassName}>
-                        <div className="add-friends">
+                        <div className="add-friends" onClick={e=>this.openModel('add',e)}>
                             <span className="iconfont icon-icon-"></span>                         
                             <span className="title">添加好友</span>                         
                         </div>
@@ -72,6 +116,10 @@ class SelectBar extends Component {
                             <span className="title">退出登陆</span>                                                     
                         </div>
                     </div>
+                    <Modal title="添加好友" visible={state.addFriendModel}
+                        onOk={this.addFriendComfirm} onCancel={this.cancelAddFriendModel}>
+                        <Input placeholder="好友名称" onChange={ele=>this.inputChange('add',ele)} value={state.friendName}/>
+                    </Modal>
                 </div>)
     }
 }

@@ -6,7 +6,9 @@ export const loginUser = (opt) =>{
         opt.success = (token) =>{
             onSuccess && onSuccess()
             let Atoken = token.access_token;
-            WebIM.utils.setCookie('webim_owlWebIM', Atoken, 1);
+            let encryptUsername = btoa(opt.user).replace(/=*$/g, "");
+            WebIM.utils.setCookie('webim_' + encryptUsername, Atoken, 1);
+            window.conn.token = Atoken;
             resolve(token);
         }
         opt.error = (error) => {
