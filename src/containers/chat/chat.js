@@ -8,7 +8,9 @@ import './chat.css';
 class Chat extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            subscribeFriend:[]
+        }
     }
 
     componentWillMount() {
@@ -24,16 +26,26 @@ class Chat extends Component {
     }
 
     handlePresence(message) {
-        console.log(message)
+        switch (message.type) {
+            case "subscribe":
+                this.setState((preState,props)=>{
+                    let {subscribeFriend} = preState
+                    return {subscribeFriend:[...subscribeFriend,message]}
+                })
+                break;
+            default:
+                break;
+        }
     }
     render() {
+        let {state} = this;
         return (
             <div className="chat" i="chat-wrapper">
                 <div className = "webim-chat-bg"> 
                 </div>
                 <div className="chat-panel">
                     <SelectBar />
-                    <PersonalPanel/>
+                    <PersonalPanel subscribeFriend={state.subscribeFriend}/>
                     {/* <MessageList />
                     <ChatContent /> */}
                 </div>
