@@ -15,7 +15,7 @@
             border-radius:5px;
         }
     }
-    .single-chat,.group-chat{
+    .single-chat,.group-chat,.personal-message{
         margin-top:10px;
         text-align:center;
         .iconfont{

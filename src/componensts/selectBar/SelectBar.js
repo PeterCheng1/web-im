@@ -10,7 +10,7 @@ class SelectBar extends Component {
         super(props);
         this.state = {
             userAvatar:this.getAvatar(),
-            chatModel:'single',//group single
+            chatModel:'personal',//group single
             openSetPanel: false,
             addFriendModel:false,
             friendName:'sheldon2001'
@@ -83,8 +83,11 @@ class SelectBar extends Component {
         let singleClassName = classnames('iconfont','icon-chat',{
             active:state.chatModel === 'single' ? true : false
         })
-        let groupClassNamr = classnames('iconfont','icon-LC_icon_chat_fill',{
+        let groupClassName = classnames('iconfont','icon-LC_icon_chat_fill',{
             active:state.chatModel === 'group' ? true : false            
+        })
+        let personalName = classnames('iconfont','icon-information',{
+            active:state.chatModel === 'personal' ? true : false            
         })
         let settingPanelClassName = classnames('setting-btn-wrapper',{
             active:state.openSetPanel
@@ -97,7 +100,10 @@ class SelectBar extends Component {
                         <span className={singleClassName} onClick={(e)=>this.changeChatModel('single',e)}></span>
                     </div>
                     <div className="group-chat">
-                        <span className={groupClassNamr} onClick={e=>this.changeChatModel('group',e)}></span>     
+                        <span className={groupClassName} onClick={e=>this.changeChatModel('group',e)}></span>     
+                    </div>
+                    <div className="personal-message">
+                        <span className={personalName} onClick={e=>this.changeChatModel('personal',e)}></span>     
                     </div>
                     <div className="setting-container"> 
                         <span className="iconfont icon-set1"  onClick={this.openPanel}></span>                         
@@ -116,7 +122,7 @@ class SelectBar extends Component {
                             <span className="title">退出登陆</span>                                                     
                         </div>
                     </div>
-                    <Modal title="添加好友" visible={state.addFriendModel}
+                    <Modal title="添加好友" visible={state.addFriendModel} okText="添加" cancelText="取消"
                         onOk={this.addFriendComfirm} onCancel={this.cancelAddFriendModel}>
                         <Input placeholder="好友名称" onChange={ele=>this.inputChange('add',ele)} value={state.friendName}/>
                     </Modal>

@@ -14,12 +14,15 @@
         filter: blur(30px);
     }
     .chat-panel{
-        position:relative;
+        position:absolute;
         z-index:50;
         border:1px solid #fff;
         width:888px;
         height:600px;
-        margin:88px auto;
+        overflow:hidden;
+        top:50%;
+        left: 50%;
+        transform: translate(-50%,10%);
     }
 }
 
