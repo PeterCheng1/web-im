@@ -16,7 +16,6 @@
     .chat-panel{
         position:absolute;
         z-index:50;
-        border:1px solid #fff;
         width:888px;
         height:600px;
         overflow:hidden;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {safeRender} from '@assets/js/safeRender'
 import './panel.css'
+import {connect} from 'react-redux';
 @safeRender
 class PersonalPanel extends Component {
     constructor(props) {

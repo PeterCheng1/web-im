@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import SelectBar from '@components/selectBar/SelectBar.js';
 import MessageList from '@components/messageList/MessageList.js'
 import ChatContent from '@components/chatContent/ChatContent.js'
-import PersonalPanel from  '@components/personalPanel/panel.js'
 import './chat.css';
 
 class Chat extends Component {
@@ -24,7 +23,6 @@ class Chat extends Component {
             }
         })
     }
-
     handlePresence(message) {
         switch (message.type) {
             case "subscribe":
@@ -45,9 +43,8 @@ class Chat extends Component {
                 </div>
                 <div className="chat-panel">
                     <SelectBar />
-                    <PersonalPanel subscribeFriend={state.subscribeFriend}/>
-                    {/* <MessageList />
-                    <ChatContent /> */}
+                    <MessageList subscribeFriend={state.subscribeFriend} />
+                    <ChatContent />
                 </div>
             </div>
         )

@@ -12,6 +12,7 @@ import { Router, Route,hashHistory } from 'react-router'
   /chat ==> 聊天页面
   /chat/single/:uid ==> 单聊
   /chat/group/:uid ==> 群聊
+  /chat/personal/:uid ==> 个人信息处理(如添加好友等等)
 */
 @safeRender
 class Main extends Component {
@@ -23,6 +24,7 @@ class Main extends Component {
           <Route path="/chat" component={ChatPage} />
           <Route path="/chat/single/:uid" component={ChatPage} />
           <Route path="/chat/group/:uid" component={ChatPage} />
+          <Route path="/chat/personal/:uid" component={ChatPage} />
         </Router>
       </Provider>
     )
