@@ -11,10 +11,17 @@ import {/*compose*/createStore, combineReducers, applyMiddleware} from 'redux';
 
 import loginReducer from './reducers/login'
 
+import panelReducer from './reducers/panel'
+
+import subscribeReducer from './reducers/subscribe'
+
+
 import thunk from 'redux-thunk';
 
 const reducers = {
-    login : loginReducer
+    login : loginReducer,
+    panel:panelReducer,
+    subscribe:subscribeReducer
 }
 
 const _reducers = combineReducers(reducers)

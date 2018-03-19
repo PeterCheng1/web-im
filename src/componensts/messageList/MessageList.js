@@ -10,10 +10,8 @@ class MessageList extends Component {
     }
 
     render() {
-        let {props} = this;
         return (<div i="message_list_warpper">
-                    <PersonalPanel subscribeFriend={props.subscribeFriend}
-                    />
+                    <PersonalPanel/>
                 </div>)
     }
 }

@@ -76,6 +76,7 @@ class Login extends Component {
             hashHistory.push('/chat')
         })
         .catch(e=>{
+            console.log(e)
             message.error('可能账号或者密码填写错误！－。－');
             this.setState({
                 loginning:false
