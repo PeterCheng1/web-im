@@ -1,7 +1,7 @@
 import {PANEL_TO_GROUP,PANEL_TO_SINGLE,PANEL_TO_BLACKLIST
-    ,PANEL_TO_SUBSCRIBE} from '../actions/actionTypes'
-
-export default function panelReducer (state={panelType:'defalut'},action) {
+    ,PANEL_TO_SUBSCRIBE} from '../actions/actionTypes' 
+//subscribe defalut
+export default function panelReducer (state={panelType:'subscribe'},action) {
     switch (action.type) {
         case PANEL_TO_SUBSCRIBE:
             return Object.assign({},state,action.playload)

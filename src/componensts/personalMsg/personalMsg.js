@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {safeRender} from '@assets/js/safeRender'
-import './panel.css'
+import './personalMsg.css'
 import {connect} from 'react-redux';
 import {PANEL_TO_SUBSCRIBE} from '@data/actions/actionTypes'
 const createUserAction = (type,panelType) =>{
@@ -38,7 +38,7 @@ class PersonalPanel extends Component {
     }
 
     checkSubscribtPanel=()=>{
-        this.props.panelTypeChange(PANEL_TO_SUBSCRIBE,'Subscribt')
+        this.props.panelTypeChange(PANEL_TO_SUBSCRIBE,'subscribe')
     }
     render() {
         let {subscribeMsg} = this.props

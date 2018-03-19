@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {safeRender} from '@assets/js/safeRender'
 import './chatContent.css';
-import DefalutPanel from '@components/defalutPanel/defalutPanel.js'
+import DefalutPanel from '@components/panel/defalutPanel/defalutPanel.js'
+import SubscribePanel from '@components/panel/subscribePanel/subscribePanel.js'
 import {connect} from 'react-redux'
 
 const createUserAction = (type,panelType) =>{
@@ -37,6 +38,7 @@ class ChatContent extends Component {
         let {panelType} =  this.props;
         return (<div i="chat_content_wrapper">
                   {panelType === 'defalut' ? <DefalutPanel/> : null}
+                  {panelType === 'subscribe' ? <SubscribePanel/> : null}
                 </div>)
     }
 }

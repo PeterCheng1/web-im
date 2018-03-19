@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {safeRender} from '@assets/js/safeRender'
-import PersonalPanel from  '@components/personalPanel/panel.js'
+import PersonalMsg from  '@components/personalMsg/personalMsg.js'
 
 @safeRender
 class MessageList extends Component {
@@ -11,7 +11,7 @@ class MessageList extends Component {
 
     render() {
         return (<div i="message_list_warpper">
-                    <PersonalPanel/>
+                    <PersonalMsg/>
                 </div>)
     }
 }

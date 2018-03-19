@@ -7,7 +7,7 @@ export default function subscribeReducer(state={subscribeMsg:[]},action){
         case REMOVE_SUBSCRIBE_MESSAGE:
             let {subscribeMsg} = state;
             let newMsgArr =  subscribeMsg.filter((msg,index)=>{
-                return msg.uid !== action.playload.uid;
+                return msg.from !== action.playload.subscribeMsg.from;
             })
             return {subscribeMsg:[...newMsgArr]}
         default:
