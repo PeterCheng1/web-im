@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import './singPanel.css'
-class SingPanel extends Component {
+import {safeRender} from '@assets/js/safeRender'
 
+@safeRender
+class SingPanel extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
 
     render () {
         return (
             <div i="single_panel_wrapper">
-                single
+                <ul></ul>
             </div>
         )
     }
