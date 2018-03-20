@@ -22,9 +22,9 @@ class Main extends Component {
         <Router history={hashHistory} >
           <Route path="/" component={LoginPage} />
           <Route path="/chat" component={ChatPage} />
-          <Route path="/chat/single/:uid" component={ChatPage} />
-          <Route path="/chat/group/:uid" component={ChatPage} />
-          <Route path="/chat/personal/:uid" component={ChatPage} />
+          <Route path="/chat/single" component={ChatPage} />
+          <Route path="/chat/group/" component={ChatPage} />
+          <Route path="/chat/personal/" component={ChatPage} />
         </Router>
       </Provider>
     )

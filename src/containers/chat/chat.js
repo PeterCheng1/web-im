@@ -5,6 +5,7 @@ import ChatContent from '@components/chatContent/ChatContent.js'
 import './chat.css';
 import {connect} from 'react-redux';
 import {ADD_SUBSCRIBE_MESSAGE} from '@data/actions/actionTypes'
+import PanelContent from '@components/panelContent/panelContent.js'
 
 const createUserAction = (type,subscribeMsg) =>{
     let action = {
@@ -68,9 +69,10 @@ class Chat extends Component {
                 <div className = "webim-chat-bg"> 
                 </div>
                 <div className="chat-panel">
-                    <SelectBar />
-                    <MessageList />
-                    <ChatContent />
+                    <SelectBar {...this.props} />
+                    <PanelContent {...this.props}/>
+                    {/* <MessageList />
+                    <ChatContent /> */}
                 </div>
             </div>
         )

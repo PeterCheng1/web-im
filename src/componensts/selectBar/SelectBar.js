@@ -4,13 +4,14 @@ import './selectBar.css';
 import {avatarLists} from '@assets/js/avatar.js'
 import classnames from 'classnames';
 import { Modal ,Input} from 'antd';
+import {hashHistory} from 'react-router'
+
 @safeRender
 class SelectBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
             userAvatar:this.getAvatar(),
-            chatModel:'personal',//group single
             openSetPanel: false,
             addFriendModel:false,
             friendName:'sheldon2001'
@@ -38,8 +39,12 @@ class SelectBar extends Component {
     }
 
     changeChatModel = (type) =>{
-        this.setState({
-            chatModel : type
+        let {uid}= this.props.location.query;
+        hashHistory.push({
+            pathname:`/chat/${type}/`,
+            query:{
+                uid:uid
+            }
         })
     }
 
@@ -81,13 +86,13 @@ class SelectBar extends Component {
     render() {
         let {state} = this;
         let singleClassName = classnames('iconfont','icon-chat',{
-            active:state.chatModel === 'single' ? true : false
+            active:this.props.location.pathname === '/chat/single/' ? true : false
         })
         let groupClassName = classnames('iconfont','icon-LC_icon_chat_fill',{
-            active:state.chatModel === 'group' ? true : false            
+            active:this.props.location.pathname === '/chat/group/' ? true : false            
         })
         let personalName = classnames('iconfont','icon-information',{
-            active:state.chatModel === 'personal' ? true : false            
+            active:this.props.location.pathname === '/chat/personal/' ? true : false            
         })
         let settingPanelClassName = classnames('setting-btn-wrapper',{
             active:state.openSetPanel

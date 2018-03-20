@@ -51,6 +51,18 @@ class SubscribePanel extends Component {
         });
         this.props.DealSubscribeMsg(REMOVE_SUBSCRIBE_MESSAGE,msg)            
     }
+
+    getRosterLists() {
+        window.conn.getRoster({
+            success(roster) {
+                console.log(roster)
+            }
+        })
+    }
+
+    componentDidMount() {
+        this.getRosterLists()
+    }
     render () {
         let {subscribeMsg} = this.props;
         return (

@@ -73,7 +73,12 @@ class Login extends Component {
                 loginning:false
             })
             this.props.loginSuccess(user); 
-            hashHistory.push('/chat')
+            hashHistory.push({
+                pathname:'/chat/single',
+                query:{
+                    uid:btoa(this.props.user.username) //atob
+                }
+            })
         })
         .catch(e=>{
             console.log(e)

@@ -1,0 +1,9 @@
+[i="panel_content_wrapper"]{
+    width: 666px;
+    height: 600px;
+    position: absolute;
+    background: #fff;
+    z-index: 200;
+    top: 0;
+    left: 120px;
+}
