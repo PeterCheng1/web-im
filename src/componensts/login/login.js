@@ -74,7 +74,7 @@ class Login extends Component {
             })
             this.props.loginSuccess(user); 
             hashHistory.push({
-                pathname:'/chat/single',
+                pathname:'/chat/single/',
                 query:{
                     uid:btoa(this.props.user.username) //atob
                 }

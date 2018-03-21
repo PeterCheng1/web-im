@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import './personalPanel.css';
 import DefalutPanel from '@components/panel/defalutPanel/defalutPanel.js'
 import SubscribePanel from '@components/panel/subscribePanel/subscribePanel.js'
+import classnames from 'classnames';
 
 const createAction = (type,panelType) =>{
     let action = {
