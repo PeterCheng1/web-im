@@ -39,16 +39,38 @@ class Chat extends Component {
     }
 
     componentWillMount() {
-        this.ListenPresenceEvent()
+        this.bindSdkEvent()
     }
 
-    ListenPresenceEvent() {
+    componentDidMount() {
+        setTimeout(()=>{
+            this.getRosterLists()
+        },1000)
+    }
+
+    bindSdkEvent() {
         window.conn.listen({
             onPresence:(message) =>{
                 this.handlePresence(message)
+            },
+            onOpened(msg) {
+            },
+            onOnline() {
             }
         })
     }
+
+    getRosterLists() {
+        window.conn.getRoster({
+            success(roster) {
+                console.log(roster,'roster')
+            },
+            error(e) {
+                console.log(e,'roster')
+            }
+        })
+    }
+
     handlePresence(message) {
         switch (message.type) {
             case "subscribe":

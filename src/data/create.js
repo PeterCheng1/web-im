@@ -15,13 +15,15 @@ import panelReducer from './reducers/panel'
 
 import subscribeReducer from './reducers/subscribe'
 
+import friendReducer from './reducers/friends'
 
 import thunk from 'redux-thunk';
 
 const reducers = {
     login : loginReducer,
     panel:panelReducer,
-    subscribe:subscribeReducer
+    subscribe:subscribeReducer,
+    friend:friendReducer
 }
 
 const _reducers = combineReducers(reducers)

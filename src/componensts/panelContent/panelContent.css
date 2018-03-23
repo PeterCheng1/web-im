@@ -6,4 +6,7 @@
     z-index: 200;
     top: 0;
     left: 120px;
+    .hiddenPanel{
+        display:none;
+    }
 }

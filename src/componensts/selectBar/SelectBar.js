@@ -14,7 +14,7 @@ class SelectBar extends Component {
             userAvatar:this.getAvatar(),
             openSetPanel: false,
             addFriendModel:false,
-            friendName:'sheldon2001'
+            friendName:''
         }
     }
 
@@ -62,6 +62,9 @@ class SelectBar extends Component {
             to: friendName.trim(),
             message: '可以加个好友吗?'
         });
+        this.setState({
+            addFriendModel:false
+        })
     }
 
     cancelAddFriendModel = () =>{
@@ -85,7 +88,6 @@ class SelectBar extends Component {
     }
     render() {
         let {state} = this;
-        console.log(this.props.location.pathname === '/chat/single/',this.props)
         let singleClassName = classnames('iconfont','icon-chat',{
             active:this.props.location.pathname === '/chat/single/' ? true : false
         })
