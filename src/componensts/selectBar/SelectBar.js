@@ -14,7 +14,7 @@ class SelectBar extends Component {
             userAvatar:this.getAvatar(),
             openSetPanel: false,
             addFriendModel:false,
-            friendName:''
+            friendName:'',
         }
     }
 

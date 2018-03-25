@@ -43,9 +43,6 @@ class Chat extends Component {
     }
 
     componentDidMount() {
-        setTimeout(()=>{
-            this.getRosterLists()
-        },1000)
     }
 
     bindSdkEvent() {
@@ -56,17 +53,6 @@ class Chat extends Component {
             onOpened(msg) {
             },
             onOnline() {
-            }
-        })
-    }
-
-    getRosterLists() {
-        window.conn.getRoster({
-            success(roster) {
-                console.log(roster,'roster')
-            },
-            error(e) {
-                console.log(e,'roster')
             }
         })
     }

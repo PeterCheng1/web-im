@@ -12,12 +12,17 @@ class PanelContent extends Component {
     }
 
     render() {
-        let {pathname} = this.props.location
+        let {pathname} = this.props.location;
+        let classGroup = {
+            hideSiglePanel : pathname !== '/chat/single/',
+            hideGroupPanel : pathname !== '/chat/group/',
+            hidePersonalPanel : pathname !== '/chat/personal/',
+        }
         return(
             <div i="panel_content_wrapper">
-              {pathname === '/chat/single/' ? <SinglePanel /> : null}
-              {pathname === '/chat/group/' ? <GroupPanel /> : null}    
-              {pathname === '/chat/personal/' ? <PersonalPanel /> : null}                        
+                <SinglePanel classGroup={classGroup} />
+                <GroupPanel classGroup={classGroup} />   
+                <PersonalPanel classGroup={classGroup} num={'123'}/>                      
             </div>
         )
     }

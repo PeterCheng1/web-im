@@ -19,7 +19,8 @@ const createAction = (type,panelType) =>{
 @connect(
     state=>{
         return {
-            subscribeMsg : state.subscribe.subscribeMsg
+            subscribeMsg : state.subscribe.subscribeMsg,
+            hidePersonalPanel:{hidePersonalPanel:false}
         } 
     },
     (dispatch)=>{
@@ -28,9 +29,22 @@ const createAction = (type,panelType) =>{
                 return dispatch(createAction(type,panelType))
             }           
         }
+    },
+    (stateProps,dispatchProps,ownProps)=>{
+        let propsObj = {}
+        if(ownProps[0]) {
+            propsObj = Object.assign({}, ownProps[0], stateProps, dispatchProps);
+        }else{
+            propsObj = Object.assign({}, ownProps, stateProps, dispatchProps);
+        }
+        return propsObj;
     }
 )
 class PersonalPanel extends Component {
+    static defaultProps = {
+        subscribeMsg:[],
+
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -47,8 +61,12 @@ class PersonalPanel extends Component {
     render () {
         let {subscribeMsg} = this.props;
         let {rightPanelType} = this.state;
+        let {hidePersonalPanel} = this.props.classGroup
+        let personal = classnames({
+            hidePanel:hidePersonalPanel
+        })
         return (
-            <div i="personal_panel_wrapper">
+            <div i="personal_panel_wrapper" className={personal}>
                 <ul className="personal-message-lists-wrapper">
                     <li className="subscribe-message" onClick={(e)=>this.rightPanelType('subscribe',e)}>
                         <span className="iconfont icon-friendadd"></span>
