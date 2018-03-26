@@ -102,6 +102,9 @@ class Chat extends Component {
             onOpened:(message) =>{
                 this.getRosterLists();
             },
+            onRoster:(message)=>{
+                this.getRosterLists();
+            },
             onPresence:(message) =>{
                 this.handlePresence(message)
             }
@@ -115,7 +118,10 @@ class Chat extends Component {
                 //     let {subscribeFriend} = preState
                 //     return {subscribeFriend:[...subscribeFriend,message]}
                 // })
-                this.props.addSubscribeMsge(ADD_SUBSCRIBE_MESSAGE,message)
+                let index = this.props.subscribeMsg.find((val,index)=>{
+                    return val.from = message.from
+                })
+                if(!index)this.props.addSubscribeMsge(ADD_SUBSCRIBE_MESSAGE,message)
                 break;
             default:
                 break;

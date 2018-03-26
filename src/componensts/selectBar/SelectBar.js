@@ -14,6 +14,7 @@ class SelectBar extends Component {
             userAvatar:this.getAvatar(),
             openSetPanel: false,
             addFriendModel:false,
+            removeFriendModel:false,
             friendName:'',
         }
     }
@@ -33,9 +34,23 @@ class SelectBar extends Component {
                     addFriendModel : true
                 })
                 break;
+            case 'remove':
+                this.setState({
+                    openSetPanel:false,
+                    removeFriendModel : true
+                })    
+                break;            
             default:
                 break;
         }
+        console.log(this.state)
+    }
+
+    logoutAccount = (type,e)=>{
+        window.conn.close();
+        hashHistory.push({
+            pathname:'/'
+        })
     }
 
     changeChatModel = (type) =>{
@@ -63,8 +78,28 @@ class SelectBar extends Component {
             message: '可以加个好友吗?'
         });
         this.setState({
+            friendName:'',
             addFriendModel:false
         })
+    }
+
+    removeFriendComfirm = ()=>{
+        let {friendName} = this.state;
+        window.conn.removeRoster({
+            to: friendName.trim(),
+            success: ()=> {  // 删除成功
+                window.conn.unsubscribed({
+                    to: friendName.trim()
+                });
+            },
+            error:  (error)=> {
+                if(error)console.log(error)    // 删除失败
+            }
+        });
+        this.setState({
+            friendName:'',
+            removeFriendModel:false
+        })        
     }
 
     cancelAddFriendModel = () =>{
@@ -72,6 +107,13 @@ class SelectBar extends Component {
             friendName:'',
             addFriendModel:false
         })
+    }
+
+    cancelRemoveFriendModel = ()=>{
+        this.setState({
+            friendName:'',
+            removeFriendModel:false
+        })        
     }
 
     inputChange = (type,ele) =>{
@@ -121,17 +163,21 @@ class SelectBar extends Component {
                             <span className="iconfont icon-icon-"></span>                         
                             <span className="title">添加好友</span>                         
                         </div>
-                        <div className="del-friends">
-                            <span className="iconfont icon-shanchu1"></span>                         
+                        <div className="del-friends" onClick={e=>this.openModel('remove',e)}>
+                            <span className="iconfont icon-shanchu1" ></span>                         
                             <span className="title">移除好友</span>                                                     
                         </div>
-                        <div className="logout">
+                        <div className="logout" onClick={e=>this.logoutAccount('logout',e)}>
                             <span className="iconfont icon-tuichu1"></span>                         
                             <span className="title">退出登陆</span>                                                     
                         </div>
                     </div>
                     <Modal title="添加好友" visible={state.addFriendModel} okText="添加" cancelText="取消"
                         onOk={this.addFriendComfirm} onCancel={this.cancelAddFriendModel}>
+                        <Input placeholder="好友名称" onChange={ele=>this.inputChange('add',ele)} value={state.friendName}/>
+                    </Modal>
+                    <Modal title="删除好友" visible={state.removeFriendModel} okText="确定" cancelText="取消"
+                        onOk={this.removeFriendComfirm} onCancel={this.cancelRemoveFriendModel}>
                         <Input placeholder="好友名称" onChange={ele=>this.inputChange('add',ele)} value={state.friendName}/>
                     </Modal>
                 </div>)
