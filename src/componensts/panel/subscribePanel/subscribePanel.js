@@ -4,6 +4,15 @@ import './subscribePanel.css';
 import {connect} from 'react-redux';
 import { Button } from 'antd';
 import {REMOVE_SUBSCRIBE_MESSAGE} from '@data/actions/actionTypes.js'
+import {REMOVE_FRIEND_MESSAGE,ADD_FRIEND_MESSAGE} from '@data/actions/actionTypes'
+import {avatarLists} from '@assets/js/avatar.js'
+
+function getAvatar() {
+    let length = avatarLists.length;
+    let index = window.parseInt(Math.random()*length);
+    let avatar = avatarLists[index]
+    return avatar;
+}
 
 const createAction = (type,subscribeMsg) =>{
     let action = {
@@ -23,6 +32,29 @@ const createAction = (type,subscribeMsg) =>{
         return {
             DealSubscribeMsg : (type,subscribeMsg)=>{
                 return dispatch(createAction(type,subscribeMsg))
+            },
+            updatedFriendLists:(type,friendLists)=>{
+                return (dispatch,type,friendLists)=>{
+                    return new Promise((resolve,reject)=>{
+                        window.conn.getRoster({
+                            success:  ( roster )=> {
+                                let friendLists = [];
+                                for(let ros of roster) {
+                                    ros.avatar = getAvatar()
+                                    if(ros.subscription === 'both') {
+                                        friendLists.push(ros);
+                                    }
+                                }
+                                dispatch(createAction(ADD_FRIEND_MESSAGE,friendLists))
+                                resolve('ok');
+                            },
+                            error: (err)=> {
+                                if(err)console.log(err);
+                                reject(err)
+                            }
+                          });
+                    })
+                }
             }
         }
     }
@@ -32,6 +64,7 @@ class SubscribePanel extends Component {
         super(props)
     }
 
+
     argee=(msg,e)=>{
         window.conn.subscribed({
             to: msg.from,
@@ -40,7 +73,8 @@ class SubscribePanel extends Component {
         window.conn.subscribe({//需要反向添加对方好友
             to: msg.from,
             message : '[resp:true]'
-        });          
+        });     
+        this.props.updatedFriendLists()     
         this.props.DealSubscribeMsg(REMOVE_SUBSCRIBE_MESSAGE,msg)
     }
 
@@ -52,18 +86,10 @@ class SubscribePanel extends Component {
         this.props.DealSubscribeMsg(REMOVE_SUBSCRIBE_MESSAGE,msg)            
     }
 
-    getRosterLists() {
-        window.conn.getRoster({
-            success(roster) {
-                console.log(roster)
-            }
-        })
-    }
-
     componentDidMount() {
-        this.getRosterLists()
     }
     render () {
+        console.log(this.props)
         let {subscribeMsg} = this.props;
         return (
             <div i="subscribePanel_wrapper">

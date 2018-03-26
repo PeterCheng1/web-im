@@ -3,7 +3,7 @@ import {REMOVE_FRIEND_MESSAGE,ADD_FRIEND_MESSAGE} from '../actions/actionTypes'
 export default function friendReducer(state={friendMsg:[]},action){
     switch (action.type) {
         case ADD_FRIEND_MESSAGE: 
-            return {friendMsg:[action.playload.friendMsg,...state.friendMsg]}
+            return {friendMsg:[...action.playload.friendLists,...state.friendMsg]}
         case REMOVE_FRIEND_MESSAGE:
             let {friendMsg} = state;
             let newMsgArr =  friendMsg.filter((msg,index)=>{
