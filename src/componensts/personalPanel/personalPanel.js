@@ -5,6 +5,7 @@ import './personalPanel.css';
 import DefalutPanel from '@components/panel/defalutPanel/defalutPanel.js'
 import SubscribePanel from '@components/panel/subscribePanel/subscribePanel.js'
 import classnames from 'classnames';
+import {mergeProps} from '@assets/js/mergeProps.js'
 
 const createAction = (type,panelType) =>{
     let action = {
@@ -30,15 +31,7 @@ const createAction = (type,panelType) =>{
             }           
         }
     },
-    (stateProps,dispatchProps,ownProps)=>{
-        let propsObj = {}
-        if(ownProps[0]) {
-            propsObj = Object.assign({}, ownProps[0], stateProps, dispatchProps);
-        }else{
-            propsObj = Object.assign({}, ownProps, stateProps, dispatchProps);
-        }
-        return propsObj;
-    }
+    mergeProps
 )
 class PersonalPanel extends Component {
     static defaultProps = {

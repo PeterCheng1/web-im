@@ -5,18 +5,25 @@ import DefalutPanel from '@components/panel/defalutPanel/defalutPanel.js'
 import {avatarLists} from '@assets/js/avatar.js'
 import { Spin } from 'antd';
 import classnames from 'classnames';
+import {connect} from 'react-redux'
+import {mergeProps} from '@assets/js/mergeProps.js'
 
 @safeRender
+@connect(state=>{
+    return {friendLists:state.friend}
+},undefined,
+mergeProps
+)
 class SingPanel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            firendLists:[]
+            firendLists:[],
+            hasGetRoster:false
         };
     }
 
     componentDidMount() {
-        console.log(123)
         setTimeout(()=>{
             this.getRosterLists()
         },1000)
@@ -42,11 +49,15 @@ class SingPanel extends Component {
                     }
                 }
                 this.setState({
-                    firendLists
+                    firendLists,
+                    hasGetRoster:true
                 })
             },    
             error: (err)=> {
                 if(err)console.log(err)
+                this.setState({
+                    hasGetRoster:true
+                })
             }
           });
     }
@@ -59,7 +70,7 @@ class SingPanel extends Component {
     }
   
     render () {
-        let {firendLists} = this.state;
+        let {firendLists,hasGetRoster} = this.state;
         let {hideSiglePanel} = this.props.classGroup
         let single = classnames('single_panel_wrapper',{
             hidePanel:hideSiglePanel
@@ -67,7 +78,7 @@ class SingPanel extends Component {
         return (
             <div i="single_panel_wrapper" className={single}>
                 <ul className="single-message-lists-wrapper">
-                    {firendLists.length > 0 ?  firendLists.map((firend,index)=>{
+                    {hasGetRoster  ?  firendLists.map((firend,index)=>{
                         return  <li className="single-message" key={firend.name}>
                                 <img className="user-avatar" src={firend.avatar} alt="用户头像"/>
                                 <span className="user-name">{firend.name}</span>
