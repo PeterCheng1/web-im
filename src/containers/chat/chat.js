@@ -107,6 +107,9 @@ class Chat extends Component {
             },
             onPresence:(message) =>{
                 this.handlePresence(message)
+            },
+            onBlacklistUpdate:(message) =>{
+                console.log(message)
             }
         })
     }

@@ -5,8 +5,13 @@ import {avatarLists} from '@assets/js/avatar.js'
 import classnames from 'classnames';
 import { Modal ,Input} from 'antd';
 import {hashHistory} from 'react-router'
+import {connect} from 'react-redux';
+import {mergeProps} from '@assets/js/mergeProps.js'
 
 @safeRender
+@connect(state=>{
+    return {friendLists:state.friend.friendMsg}
+},undefined,mergeProps)
 class SelectBar extends Component {
     constructor(props) {
         super(props);
@@ -39,11 +44,16 @@ class SelectBar extends Component {
                     openSetPanel:false,
                     removeFriendModel : true
                 })    
-                break;            
+                break;     
+            case 'black':
+                this.setState({
+                    openSetPanel:false,
+                    blackFriendModel : true
+                })    
+                break;                        
             default:
                 break;
         }
-        console.log(this.state)
     }
 
     logoutAccount = (type,e)=>{
@@ -102,6 +112,16 @@ class SelectBar extends Component {
         })        
     }
 
+    blackFriendComfirm = ()=>{
+        let {friendName} = this.state;
+        let BlackUser = this.props.friendLists.filter((user,index)=>{
+            return user.name === friendName;
+        })[0]
+        let newBlackUser = {}
+        newBlackUser[BlackUser.name] = BlackUser;
+        console.log(newBlackUser)
+    }
+
     cancelAddFriendModel = () =>{
         this.setState({
             friendName:'',
@@ -114,6 +134,13 @@ class SelectBar extends Component {
             friendName:'',
             removeFriendModel:false
         })        
+    }
+
+    cancelBlackFriendModel = ()=>{
+        this.setState({
+            friendName:'',
+            blackFriendModel:false
+        })                
     }
 
     inputChange = (type,ele) =>{
@@ -167,6 +194,10 @@ class SelectBar extends Component {
                             <span className="iconfont icon-shanchu1" ></span>                         
                             <span className="title">移除好友</span>                                                     
                         </div>
+                        <div className="black-friends" onClick={e=>this.openModel('black',e)}>
+                            <span className="iconfont icon-heimingdan1"></span>                         
+                            <span className="title">添加黑名单</span>                                                     
+                        </div>
                         <div className="logout" onClick={e=>this.logoutAccount('logout',e)}>
                             <span className="iconfont icon-tuichu1"></span>                         
                             <span className="title">退出登陆</span>                                                     
@@ -178,6 +209,10 @@ class SelectBar extends Component {
                     </Modal>
                     <Modal title="删除好友" visible={state.removeFriendModel} okText="确定" cancelText="取消"
                         onOk={this.removeFriendComfirm} onCancel={this.cancelRemoveFriendModel}>
+                        <Input placeholder="好友名称" onChange={ele=>this.inputChange('add',ele)} value={state.friendName}/>
+                    </Modal>
+                    <Modal title="黑名单" visible={state.blackFriendModel} okText="添加" cancelText="取消"
+                        onOk={this.blackFriendComfirm} onCancel={this.cancelBlackFriendModel}>
                         <Input placeholder="好友名称" onChange={ele=>this.inputChange('add',ele)} value={state.friendName}/>
                     </Modal>
                 </div>)

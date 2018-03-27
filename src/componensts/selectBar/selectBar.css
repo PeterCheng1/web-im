@@ -73,7 +73,7 @@
             left:-8px;
             border-radius:2px;
         }
-        .add-friends,.del-friends,.logout{
+        .add-friends,.del-friends,.black-friends,.logout{
             text-align:center;
             cursor:pointer;
             transition:all .3s;
