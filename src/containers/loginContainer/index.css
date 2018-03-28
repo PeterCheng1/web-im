@@ -24,7 +24,6 @@ body{
             .logo-wrapper{
                 position:absolute;
                 transform:translateX(55%);
-                
                 right:50%;
                 top:100px;  
                 min-width:400px;
