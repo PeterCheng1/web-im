@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Router, Route,hashHistory } from 'react-router'
 import {safeRender} from '@assets/js/safeRender'
-import LoginPage from './containers/loginContainer/index'
+import LoginContainer from './containers/loginContainer/index'
+import ChatContainer from './containers/chatContainer/index'
 import 'antd/dist/antd.css';  // or 'antd/dist/antd.less'
 import {Provider} from 'react-redux';
 import store from './data/create'
-
+import './App.css';
 
 /*
   路由:
@@ -22,7 +23,8 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router history={hashHistory} >
-          <Route path="/" component={LoginPage} />
+          <Route path="/" component={LoginContainer} />
+          <Route path="/chat/single/" component={ChatContainer} />
         </Router>
       </Provider>
     );

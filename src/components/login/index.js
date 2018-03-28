@@ -9,8 +9,8 @@ import {createAction} from '@assets/js/create.js'
 import {USER_LOGIN_SUCCESS} from '@data/actions/actionTypes.js'
 @safeRender
 @connect(state=>{
-    return {user:state.get('login')}
-},
+        return {user:state.get('login')}
+    },
     (dispatch)=>{
         return {
             loginSuccess:(actionType,playload)=>{
@@ -58,9 +58,7 @@ class Login extends Component {
             this.setState({
                 loginning:false
             })
-            this.props.loginSuccess(USER_LOGIN_SUCCESS,user); 
-            console.log(this.props.user.get('loginUser'),'loginUser')
-            return;
+            this.props.loginSuccess(USER_LOGIN_SUCCESS,user);
             hashHistory.push({
                 pathname:'/chat/single/',
                 query:{
@@ -77,7 +75,6 @@ class Login extends Component {
     }
     render () {
         let {state} = this;
-        console.log(this.props.user.get('loginUser'))
         return (
             <div className="webim-login-wrapper" i="webim-login-wrapper">
                 <div className="webim-loginName-wrapper">

@@ -5,6 +5,8 @@ import pageLogo from '@assets/images/logo/logo.png'
 import './index.css';
 import classnames from 'classnames';
 import Login from '@components/login/index.js';
+import Sign from '@components/sign/index.js';
+
 @safeRender
 class LoginContainer extends Component {
     constructor(props) {
@@ -30,9 +32,27 @@ class LoginContainer extends Component {
         let newClassName = val === 'login'  
         ? classnames("webim-bottomLine",{'webim-sign':false})
         :classnames("webim-bottomLine",{'webim-sign':true})
-        let newData = data.set('bottomLineName',newClassName);
+        let newBool = val === 'login'? true:false
+        let newData = data.update(data=>{
+            return data
+                .set('bottomLineName',newClassName)
+                .set('login',newBool)
+        })
         this.setState({
             data:newData
+        })
+    }
+
+    registerSuccess = () =>{
+        let {data} = this.state;
+        let newClassName = classnames("webim-bottomLine",{'webim-sign':false})
+        let newData = data.update(data=>{
+            return data
+                .set('bottomLineName',newClassName)
+                .set('login',true)
+        })
+        this.setState({
+            data:newData 
         })
     }
     render() {
@@ -53,7 +73,7 @@ class LoginContainer extends Component {
                         </div>
                         <div className={data.get('bottomLineName')}></div>
                     </div>
-                    <Login/>
+                    {data.get('login') ? <Login/> : <Sign onRegisterSuccess={this.registerSuccess}/>}
                 </div>                        
             </div>
         </div>

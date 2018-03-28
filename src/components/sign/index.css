@@ -1,0 +1,65 @@
+/*
+    Sign.css
+    author:sheldonyee
+    github:petercheng1
+*/
+@keyframes rotating{
+    from{transform:rotate(0)}
+    to{transform:rotate(360deg)}
+}
+
+[i="webim-Sign-wrapper"]{
+    position:absolute;
+    top:280px;
+    right:50%;
+    transform:translateX(50%);
+    .webim-SignName-wrapper,.webim-password-wrapper,.webim-name-wrapper{
+        input{
+            margin-top:30px;
+            width:280px;
+            border:0px;
+            background:rgba(255,255,255,.2);
+            padding:10px;
+            color:rgba(255,255,255,.8);
+            font-size:15px;
+            border-radius:20px;
+            outline: none;
+            text-align:center;
+            -moz-appearance:none; /* Firefox */
+            -webkit-appearance:none; /* Safari 和 Chrome */
+            &::placeholder{
+                color:rgba(255,255,255,.8);
+                text-align:center;
+            }
+        }
+        input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {  
+            -webkit-transition-delay: 99999s;  
+            -webkit-transition: color 99999s ease-out, background-color 99999s ease-out;  
+            /* -webkit-box-shadow: 0 0 0px 1000px white inset; */  
+        }
+    }
+    .webim-Sign-btn{
+        width:50px;
+        height:50px;
+        border-radius:100%;
+        text-align:center;
+        z-index: 1;
+        position:relative;
+        cursor:pointer;
+        background:rgba(255,255,255,.2);
+        border-radius:100%;
+        transition:all .3s;
+        margin:80px auto;
+        &:hover{
+            background:rgba(255,255,255,.5);
+        }
+        .SignBtn{
+            line-height:50px;
+            text-align:center;
+        }
+        .loginning{
+            display:inline-block;
+            animation:rotating 1.2s ease infinite;
+        }
+    }
+}
