@@ -2,9 +2,7 @@
 /*
     为组件的生命周期函数添加try catch 处理，防止组件由于错误无法正常渲染
 */
-
 import { shallowEqualImmutable } from 'react-immutable-render-mixin';
-
 export function safeRender(target) {
     let lifeCricle = [
         'componentWillMount',
