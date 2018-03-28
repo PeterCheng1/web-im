@@ -4,7 +4,7 @@ import {Map} from 'immutable';
 import pageLogo from '@assets/images/logo/logo.png'
 import './index.css';
 import classnames from 'classnames';
-
+import Login from '@components/login/index.js';
 @safeRender
 class LoginContainer extends Component {
     constructor(props) {
@@ -53,6 +53,7 @@ class LoginContainer extends Component {
                         </div>
                         <div className={data.get('bottomLineName')}></div>
                     </div>
+                    <Login/>
                 </div>                        
             </div>
         </div>

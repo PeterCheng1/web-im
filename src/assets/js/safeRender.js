@@ -2,7 +2,7 @@
 /*
     为组件的生命周期函数添加try catch 处理，防止组件由于错误无法正常渲染
 */
-import {is} from 'immutable';
+import { shallowEqualImmutable } from 'react-immutable-render-mixin';
 
 export function safeRender(target) {
     let lifeCricle = [
@@ -41,26 +41,5 @@ export function safeRender(target) {
  * 生命周期函数，以达到提高性能的目的
  */
 function shouldComponentUpdate(nextProps, nextState) {
-    const thisProps = this.props || {};
-    const thisState = this.state || {};
-    nextState = nextState || {};
-    nextProps = nextProps || {};
-
-    if (Object.keys(thisProps).length !== Object.keys(nextProps).length ||
-        Object.keys(thisState).length !== Object.keys(nextState).length) {
-        return true;
-    }
-
-    for (const key in nextProps) {
-        if (!is(thisProps[key], nextProps[key])) {
-            return true;
-        }
-    }
-
-    for (const key in nextState) {
-        if (!is(thisState[key], nextState[key])) {
-            return true;
-        }
-    }
-    return false;
+    return !shallowEqualImmutable(this.props, nextProps) || !shallowEqualImmutable(this.state, nextState);  
 }

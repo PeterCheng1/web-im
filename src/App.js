@@ -3,6 +3,9 @@ import { Router, Route,hashHistory } from 'react-router'
 import {safeRender} from '@assets/js/safeRender'
 import LoginPage from './containers/loginContainer/index'
 import 'antd/dist/antd.css';  // or 'antd/dist/antd.less'
+import {Provider} from 'react-redux';
+import store from './data/create'
+
 
 /*
   路由:
@@ -17,11 +20,11 @@ import 'antd/dist/antd.css';  // or 'antd/dist/antd.less'
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <Provider store={store}>
         <Router history={hashHistory} >
           <Route path="/" component={LoginPage} />
         </Router>
-      </div>
+      </Provider>
     );
   }
 }

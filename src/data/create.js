@@ -1,38 +1,28 @@
 
-// /**
-//  * Created by sheldonyee
-//  * github petercheng1 
-//  * 构造redux
-//  * 
-//  * combineReducer ==> applyMiddlers ==> createStore === store
-//  */
+/**
+ * Created by sheldonyee
+ * github petercheng1 
+ * 构造redux
+ * 
+ * combineReducer ==> applyMiddlers ==> createStore === store
+ */
 
-// import {/*compose*/createStore, combineReducers, applyMiddleware} from 'redux';
+import {/*compose,combineReducers*/createStore, applyMiddleware} from 'redux';
 
-// import loginReducer from './reducers/login'
+import {combineReducers} from 'redux-immutable';
 
-// import panelReducer from './reducers/panel'
+import thunk from 'redux-thunk';
 
-// import subscribeReducer from './reducers/subscribe'
+const reducers = {
+}
 
-// import friendReducer from './reducers/friends'
+const _reducers = combineReducers(reducers)
 
-// import thunk from 'redux-thunk';
+const middlewares = [thunk];
 
-// const reducers = {
-//     login : loginReducer,
-//     panel:panelReducer,
-//     subscribe:subscribeReducer,
-//     friend:friendReducer
-// }
+let finalCreateStore = applyMiddleware(...middlewares)(createStore);
 
-// const _reducers = combineReducers(reducers)
+const store = finalCreateStore(_reducers)
 
-// const middlewares = [thunk];
-
-// let finalCreateStore = applyMiddleware(...middlewares)(createStore);
-
-// const store = finalCreateStore(_reducers)
-
-// export default store;
+export default store;
 
