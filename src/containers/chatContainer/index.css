@@ -23,6 +23,9 @@
         left: 50%;
         transform: translate(-50%,10%);
         border:1px solid;
+        .hidePanel{
+            display:none;
+        }
     }
 }
 

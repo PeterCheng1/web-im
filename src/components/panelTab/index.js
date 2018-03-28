@@ -11,6 +11,9 @@ import classnames from 'classnames';
 class PanelTab extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            smallPanel:false
+        }
     }
 
     tabTransfrom = (type,e)=>{
@@ -20,6 +23,12 @@ class PanelTab extends Component {
             query:{
                 uid:uid
             }
+        })
+    }
+
+    openSamllPanel = ()=>{
+        this.setState((prevState,props)=>{
+            return {smallPanel:!prevState.smallPanel}
         })
     }
     render() {
@@ -32,6 +41,9 @@ class PanelTab extends Component {
         })
         let personalClass = classnames('iconfont',' icon-information',{
             active:(pathname === '/chat/personal/' ? true : false)            
+        })
+        let settingPanelClassName = classnames('setting-btn-wrapper',{
+            active:this.state.smallPanel
         })
         return (<div i="panel_tab_wrapper">
                     <div className="avatar-wrapper">
@@ -47,7 +59,25 @@ class PanelTab extends Component {
                         <span className={personalClass} onClick={e=>this.tabTransfrom('personal',e)}></span>     
                     </div>
                     <div className="setting-container"> 
-                        <span className="iconfont icon-set1"  onClick={this.openPanel}></span>                         
+                        <span className="iconfont icon-set1"  onClick={this.openSamllPanel}></span>                         
+                    </div>
+                    <div className={settingPanelClassName}>
+                        <div className="add-friends" onClick={e=>this.openModel('add',e)}>
+                            <span className="iconfont icon-icon-"></span>                         
+                            <span className="title">添加好友</span>                         
+                        </div>
+                        <div className="del-friends" onClick={e=>this.openModel('remove',e)}>
+                            <span className="iconfont icon-shanchu1" ></span>                         
+                            <span className="title">移除好友</span>                                                     
+                        </div>
+                        <div className="black-friends" onClick={e=>this.openModel('black',e)}>
+                            <span className="iconfont icon-heimingdan1"></span>                         
+                            <span className="title">添加黑名单</span>                                                     
+                        </div>
+                        <div className="logout" onClick={e=>this.logoutAccount('logout',e)}>
+                            <span className="iconfont icon-tuichu1"></span>                         
+                            <span className="title">退出登陆</span>                                                     
+                        </div>
                     </div>
                 </div>)
     }

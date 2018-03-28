@@ -1,0 +1,9 @@
+[i="personal_panel_wrapper"] {
+    width: 770px;
+    height: 600px;
+    position: absolute;
+    background: #fff;
+    z-index: 200;
+    top: 0;
+    left: 120px;
+}
