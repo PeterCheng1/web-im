@@ -1,12 +1,24 @@
 import React, { Component } from 'react';
-import {Map,List} from 'immutable';
 import {safeRender} from '@assets/js/safeRender'
 import {loginUser} from '@assets/js/loginUser'
 import {hashHistory} from 'react-router'
 import { message } from 'antd';
-import './index.css'
-
+import './index.css';
+import {connect} from 'react-redux'
+import {createAction} from '@assets/js/create.js'
+import {USER_LOGIN_SUCCESS} from '@data/actions/actionTypes.js'
 @safeRender
+@connect(state=>{
+    return {user:state.get('login')}
+},
+    (dispatch)=>{
+        return {
+            loginSuccess:(actionType,playload)=>{
+                return dispatch(createAction(actionType,'user',playload))
+            }
+        }
+    }
+)
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -46,7 +58,9 @@ class Login extends Component {
             this.setState({
                 loginning:false
             })
-            this.props.loginSuccess(user); 
+            this.props.loginSuccess(USER_LOGIN_SUCCESS,user); 
+            console.log(this.props.user.get('loginUser'),'loginUser')
+            return;
             hashHistory.push({
                 pathname:'/chat/single/',
                 query:{
@@ -63,6 +77,7 @@ class Login extends Component {
     }
     render () {
         let {state} = this;
+        console.log(this.props.user.get('loginUser'))
         return (
             <div className="webim-login-wrapper" i="webim-login-wrapper">
                 <div className="webim-loginName-wrapper">

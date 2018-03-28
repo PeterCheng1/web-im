@@ -13,7 +13,10 @@ import {combineReducers} from 'redux-immutable';
 
 import thunk from 'redux-thunk';
 
+import loginReducer from '@data/reducers/loginReducer.js'
+
 const reducers = {
+    login:loginReducer
 }
 
 const _reducers = combineReducers(reducers)

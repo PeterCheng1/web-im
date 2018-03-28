@@ -1,8 +1,8 @@
-export const createUserAction = (type,playladType,playload) =>{
+export const createAction = (type,playladType,playload) =>{
     let action = {
         type:type,
         playload:{}
     }
-    action[playladType] = playload;
+    action.playload[playladType] = playload;
     return action;
 }
