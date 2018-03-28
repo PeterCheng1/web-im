@@ -85,7 +85,7 @@ module.exports = {
     extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
       '@data': path.join(__dirname , '../src/data'),
-      '@components':path.join(__dirname , '../src/componensts'),
+      '@components':path.join(__dirname , '../src/components'),
       '@containers':path.join(__dirname , '../src/containers'),
       '@assets':path.join(__dirname , '../src/assets'),
       // Support React Native Web
