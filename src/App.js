@@ -25,6 +25,8 @@ class App extends Component {
         <Router history={hashHistory} >
           <Route path="/" component={LoginContainer} />
           <Route path="/chat/single/" component={ChatContainer} />
+          <Route path="/chat/group/" component={ChatContainer} />
+          <Route path="/chat/personal/" component={ChatContainer} />
         </Router>
       </Provider>
     );

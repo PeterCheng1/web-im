@@ -1,0 +1,28 @@
+[i="chat-wrapper"] {
+    position:relative;
+    .webim-chat-bg{
+        position:fixed;
+        top:0;
+        bottom:0;
+        right:0;
+        left:0;
+        z-index:10;
+        background-image:url('../../assets/images/aurora/newBg2.jpg');
+        background-position:center;
+        background-size:cover;
+        background-attachment: fixed;
+        filter: blur(30px);
+    }
+    .chat-panel{
+        position:absolute;
+        z-index:50;
+        width:888px;
+        height:600px;
+        overflow:hidden;
+        top:50%;
+        left: 50%;
+        transform: translate(-50%,10%);
+        border:1px solid;
+    }
+}
+
