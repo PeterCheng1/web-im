@@ -6,4 +6,60 @@
     z-index: 200;
     top: 0;
     left: 120px;
+    .personal-messageLists{
+        width:250px;
+        height:100%;
+        overflow:auto;
+        border-right:1px solid #e6e6e6; 
+        .subscribe-msg-item,.black-lists-item{
+            width:100%;
+            height:60px;
+            line-height:60px;
+            border-bottom:1px solid #e6e6e6;
+            cursor:pointer;
+            transition:all .2s;
+            background:#f3f3f3;
+            &.active{
+                background:#dedada;
+            }
+            &:hover{
+                background:#dedada;
+            }
+            &::after{
+                clear:both;
+                content:"";
+                display:block;
+            }
+            .iconfont{
+                padding-left:10px;
+                color: #d67e05;
+                font-size: 25px;
+            }
+            .item-title{
+                position:relative;
+                top:-3px;
+                font-size: 13px;
+                padding-left: 8px;
+                color: #151313;
+            }
+            .msg-num{
+                float: right;
+                color: #fff;
+                background: #ff4d4f;
+                border-radius: 100%;
+                font-size: 12px;
+                width: 18px;
+                height: 18px;
+                line-height: 18px;
+                text-align: center;
+                margin-top:20px;
+                margin-right:13px;
+            }
+        }
+        .black-lists-item{
+            .iconfont{
+                color:#3a2a14;
+            }
+        }     
+    }
 }

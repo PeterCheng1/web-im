@@ -15,8 +15,11 @@ import thunk from 'redux-thunk';
 
 import loginReducer from '@data/reducers/loginReducer.js'
 
+import subscribeReducer from '@data/reducers/subscribeReducer.js'
+
 const reducers = {
-    login:loginReducer
+    login:loginReducer,
+    subscribe:subscribeReducer
 }
 
 const _reducers = combineReducers(reducers)

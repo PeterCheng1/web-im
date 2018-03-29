@@ -31,6 +31,13 @@ class PanelTab extends Component {
             return {smallPanel:!prevState.smallPanel}
         })
     }
+
+    logoutAccount =(type,e)=>{
+        window.conn.close();
+        hashHistory.push({
+            pathname:'/'
+        })
+    }
     render() {
         let {pathname} = this.props.location;
         let singleClass = classnames('iconfont','icon-chat',{
