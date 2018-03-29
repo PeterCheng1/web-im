@@ -6,7 +6,7 @@ import {createAction} from '@assets/js/create.js'
 import {FRIEND_SUBSCRIBE_ADD,FRIEND_SUBSCRIBE_REMOVE} from '@data/actions/actionTypes.js';
 import {Map,List,fromJS} from 'immutable';
 import { Button } from 'antd';
-
+import NoneMsgPic from '@assets/images/noneMsg/subscrbei.jpeg'
 @safeRender
 @connect(state=>{
     return {
@@ -48,14 +48,16 @@ class SubscribePanel extends Component {
         this.props.handleSubscribeMsg(FRIEND_SUBSCRIBE_REMOVE,user);
     }
     render () {
-        let {subscribeMessage} = this.props
+        let {subscribeMessage} = this.props;
+        console.log(subscribeMessage.size,'subscribeMessage')
+        let hideStyle = {display:'none'}
         return (<div i="subscribe_panel">
                 <div className="panel-header">
                     <span className="title">新的朋友</span>
                     <span className="iconfont icon-yidiandiantubiao08"></span>
                 </div>
                 <div className="panel-content">
-                    <ul className="msgList-content">
+                    <ul className="msgList-content"  style={subscribeMessage.size === 0 ? hideStyle : {}}>
                         {
                             subscribeMessage.map((msg,idx)=>{
                                 return<li className="list-content" key={msg.get('from')}>
@@ -72,6 +74,10 @@ class SubscribePanel extends Component {
                             })
                         }
                     </ul>
+                    <div className="none-msg-wrapper" style={subscribeMessage.size > 0 ? hideStyle : {}}>
+                        <img src={NoneMsgPic} alt="没有任何消息哎" />
+                        <p className="desc">没有人类想找你好朋友唉！嘤嘤嘤。。。</p>
+                    </div>
                 </div>
             </div>)
     }

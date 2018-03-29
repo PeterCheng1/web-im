@@ -57,5 +57,15 @@
                 }
             }
         }
+        .none-msg-wrapper{
+            text-align:center;
+            img{
+                width:220px;
+                margin-top:100px;
+            }
+            .desc{
+                font-size:14px;
+            }
+        }
     }
 }
