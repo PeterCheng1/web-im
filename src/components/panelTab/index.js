@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import {safeRender} from '@assets/js/safeRender';
 import { Modal ,Input} from 'antd';
 import './index.css';
+import {mergeProps} from '@assets/js/mergeProps.js'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
-import {mergeProps} from '@assets/js/mergeProps.js';
 import classnames from 'classnames';
-
 @safeRender
+@connect(state=>{
+    return {
+        subscribeMessage:state.get('subscribe')
+    }
+},undefined,mergeProps)
 class PanelTab extends Component {
     constructor(props) {
         super(props);
@@ -52,6 +56,7 @@ class PanelTab extends Component {
         let settingPanelClassName = classnames('setting-btn-wrapper',{
             active:this.state.smallPanel
         })
+        let hideStyle = {display:'none'}
         return (<div i="panel_tab_wrapper">
                     <div className="avatar-wrapper">
                         {/* <img src={state.userAvatar} alt="avatar" /> */}
@@ -63,10 +68,11 @@ class PanelTab extends Component {
                         <span className={groupClass} onClick={e=>this.tabTransfrom('group',e)}></span>     
                     </div>
                     <div className="personal-message">
-                        <span className={personalClass} onClick={e=>this.tabTransfrom('personal',e)}></span>     
+                        <span className={personalClass} onClick={e=>this.tabTransfrom('personal',e)}></span>                                                   
+                        <span className="msg-num" style={this.props.subscribeMessage.size === 0 ? hideStyle : {}}>{this.props.subscribeMessage.size}</span>
                     </div>
                     <div className="setting-container"> 
-                        <span className="iconfont icon-set1"  onClick={this.openSamllPanel}></span>                         
+                        <span className="iconfont icon-set1"  onClick={this.openSamllPanel}></span>  
                     </div>
                     <div className={settingPanelClassName}>
                         <div className="add-friends" onClick={e=>this.openModel('add',e)}>

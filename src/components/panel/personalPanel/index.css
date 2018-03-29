@@ -20,10 +20,10 @@
             transition:all .2s;
             background:#f3f3f3;
             &.active{
-                background:#dedada;
+                background:#7898c54a;
             }
             &:hover{
-                background:#dedada;
+                background:#b1c9ea4a;
             }
             &::after{
                 clear:both;
@@ -61,5 +61,14 @@
                 color:#3a2a14;
             }
         }     
+    }
+    .personal-panel-content{
+        .common-panel{
+            height: 100%;
+            width: 521px;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
     }
 }

@@ -1,21 +1,21 @@
 import {FRIEND_SUBSCRIBE_ADD,FRIEND_SUBSCRIBE_REMOVE} from '@data/actions/actionTypes.js';
-import {fromJS} from 'immutable';
+import {List,Map} from 'immutable';
 
 
-const initialState = fromJS([])
+const initialState = List([])
 export default function loginReducer(state=initialState,action){
     switch (action.type) {
         case FRIEND_SUBSCRIBE_ADD:
-            let newMsg = fromJS(action.playload.subscribeMessage);
+            let newMsg = Map(action.playload.subscribeMessage);
             if(state.includes(newMsg)){
                 return state
             }else{
                 return state.push(newMsg);
             }
         case FRIEND_SUBSCRIBE_REMOVE:
-            let {from} = action.playload.subscribeMessage
+            let from = action.playload.subscribeMessage.get('from')
             return state.filter((msg,index)=>{
-                return msg.from !== from;
+                return msg.get('from') !== from;
             })       
         default:
             return state;

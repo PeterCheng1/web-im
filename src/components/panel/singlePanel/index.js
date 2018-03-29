@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {safeRender} from '@assets/js/safeRender'
 import './index.css';
-
 @safeRender
 class SinglePanel extends Component {
 

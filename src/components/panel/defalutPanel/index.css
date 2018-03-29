@@ -1,0 +1,17 @@
+.defalut-panel{
+    position:absolute;
+    top:50%;
+    left:50%;
+    display:inline-block;
+    transform: translate(-50%,-70%);
+    .logo{
+        width:150px;
+        filter: brightness(9);
+    }
+    .title{
+        padding-top:10px;
+        text-align:center;
+        font-family:fantasy,serif,monospace;
+        font-size:18px;
+    }
+}

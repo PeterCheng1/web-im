@@ -19,6 +19,7 @@
     .single-chat,.group-chat,.personal-message{
         margin-top:30px;
         text-align:center;
+        position:relative;
         .iconfont{
             cursor:pointer;
             text-align:center;
@@ -27,6 +28,20 @@
             &.active{
                 color:#40c545cc;
             }
+        }
+        .msg-num{
+            background: #e20f0ff7;
+            color: #fff;
+            width: 20px;
+            display: inline-block;
+            height: 20px;
+            line-height: 20px;
+            border-radius: 100%;
+            text-align: center;
+            position: absolute;
+            left: 22px;
+            top: -3px;
+            font-size: 13px;
         }
     }
     .setting-container{
