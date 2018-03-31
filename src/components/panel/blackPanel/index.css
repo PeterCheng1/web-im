@@ -1,0 +1,74 @@
+[i="black_panel_container"] {
+    .panel-header{
+        background: #7898c54a;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        .title{
+            font-size:15px;
+            padding-right:2px;
+        }
+        .iconfont{
+            position:relative;
+            top:0px;
+            color: #e4a132;
+            font-size:15px;
+        }
+    }
+    .panel-content{
+        .blackLists-content{
+            height: 550px;
+            overflow: auto;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            flex-wrap: wrap;
+            align-content: baseline;
+            .list-content{
+                margin: 10px 15px;
+                border: 1px solid #d4c1c1bd;
+                height: 70px;
+                width: 230px;
+                border-radius:5px;
+                .user-avatar{
+                    width:35px;
+                    height:35px;
+                    border:1px solid #e6e6e6;
+                    border-radius:100%;
+                    display:inline-block;
+                    margin:15px 5px 0px 6px;
+                }
+                .user-name{
+                    display: inline-block;
+                    position: relative;
+                    top: -12px;
+                    margin-left:4px;
+                }
+                .button-wrapper{
+                    cursor:pointer;
+                    display: inline-block;
+                    position: relative;
+                    top: -9px;  
+                    margin-left:14px;
+                    transition:all .3s;
+                    .iconfont{
+                        font-size:26px;
+                    }
+                    &:hover{
+                        color:#7196bf;
+                    }
+                }
+            }
+        }
+        .none-msg-wrapper{
+            text-align:center;
+            img{
+                width:220px;
+                margin-top:100px;
+            }
+            .desc{
+                font-size:14px;
+            }
+        }
+    }
+}

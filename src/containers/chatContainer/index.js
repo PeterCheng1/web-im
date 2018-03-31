@@ -10,11 +10,14 @@ import GroupPanel from '@components/panel/groupPanel/index.js'
 import classnames from 'classnames';
 import {createAction} from '@assets/js/create.js';
 import {FRIEND_SUBSCRIBE_ADD,FRIEND_SUBSCRIBE_REMOVE} from '@data/actions/actionTypes.js';
+import {BLACK_LISTS_UPDATE} from '@data/actions/actionTypes.js';
+import {FRIEND_LISTS_ADD,FRIEND_LISTS_REMOVE,FRIEND_LISTS_UPDATE} from '@data/actions/actionTypes.js';
 import {connect} from 'react-redux';
 @safeRender
 @connect(state=>{
     return {
-        subscribe:state.get('subscribe')
+        subscribe:state.get('subscribe'),
+        blackLists:state.get('black')
     }
 },
 (dispatch)=>{
@@ -24,6 +27,12 @@ import {connect} from 'react-redux';
         },
         removeSubscribeMsg:(type,playload)=>{
             return dispatch(createAction(type,'subscribeMessage',playload))
+        },
+        blackListsUpdate:(type,playload)=>{
+            return dispatch(createAction(type,'blackLists',playload))
+        },
+        addFriendList:(type,playload)=>{
+            return dispatch(createAction(type,'friendLists',playload))
         }
     }
 },
@@ -32,6 +41,9 @@ mergeProps
 class ChatContainer extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            hadGetFriendLists:false
+        }
     }
 
     componentDidMount() {
@@ -40,27 +52,56 @@ class ChatContainer extends Component {
     bindSdkEvent() {
         window.conn.listen({
             onOpened:(message)=>{
-
+                this.getBlackList();
+                this.getFriendLists();
             },
             onPresence:(message)=>{
-                // console.log(message)
                 this.handlePresence(message)
             },
             onRoster:(message)=>{
-                
+                this.getFriendLists();
             },
             onInviteMessage:(message)=>{
 
             },
             onBlacklistUpdate:(message)=>{
                 // 查询黑名单，将好友拉黑，将好友从黑名单移除都会回调这个函数，list则是黑名单现有的所有好友信息
-
-
+                this.props.blackListsUpdate(BLACK_LISTS_UPDATE,message)
             },
             onError:(error)=>{
                 console.log(error);
             }
         })
+    }
+
+    getFriendLists() {
+        window.conn.getRoster({
+            success:  ( roster ) =>{
+                //获取好友列表，并进行好友列表渲染，roster格式为：
+                /** [
+                        {
+                        jid:'asemoemo#chatdemoui_test1@easemob.com',
+                        name:'test1',
+                        subscription: 'both'
+                        }
+                    ]
+                */
+                let friendLists = roster.filter((friend,idx)=>{
+                    return friend.subscription === 'both'
+                })
+                this.props.addFriendList(FRIEND_LISTS_ADD,friendLists)
+                this.setState({
+                    hadGetFriendLists:true
+                })
+            },  
+            error:(err) =>{
+                console.log(err)
+            }  
+          });
+    }
+
+    getBlackList() {
+        window.conn.getBlacklist();
     }
 
     handlePresence(e) {
@@ -69,7 +110,7 @@ class ChatContainer extends Component {
                 this.props.addSubscribeMsg(FRIEND_SUBSCRIBE_ADD,e)
                 break;
             case 'subscribed':
-
+                
                 break;
             case 'unsubscribe':
 
@@ -83,6 +124,7 @@ class ChatContainer extends Component {
     }
     
     render() {
+        let {hadGetFriendLists} = this.state;
         let {pathname} = this.props.location;
         let personalPanelClass = classnames({
             hidePanel : pathname !== '/chat/personal/' ? true : false
@@ -93,7 +135,6 @@ class ChatContainer extends Component {
         let groupPanelClass = classnames({
             hidePanel : pathname !== '/chat/group/' ? true : false
         })
-        // console.log(this.props.test)
         return(
             <div className="chat" i="chat-wrapper">
                 <div className = "webim-chat-bg"></div>
@@ -103,7 +144,7 @@ class ChatContainer extends Component {
                         <PersonalPanel/>
                     </div>
                     <div className={singlePanelClass}>
-                        <SinglePanel/>
+                        <SinglePanel hadGetFriendLists={hadGetFriendLists}/>
                     </div>
                     <div className={groupPanelClass}>
                         <GroupPanel/>

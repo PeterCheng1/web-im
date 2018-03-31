@@ -1,0 +1,15 @@
+[i="modal_wrapper"] {
+
+}
+
+.ModalInput{
+    outline: none;
+    border: 1px solid #d0c9c9;
+    border-radius: 4px;
+    padding: 5px 10px;
+    width: 50%;
+    color: gray;
+    &:focus,&:hover{
+        border-color:#40a9ff;
+    }
+}

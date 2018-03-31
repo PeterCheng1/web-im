@@ -49,7 +49,6 @@ class SubscribePanel extends Component {
     }
     render () {
         let {subscribeMessage} = this.props;
-        console.log(subscribeMessage.size,'subscribeMessage')
         let hideStyle = {display:'none'}
         return (<div i="subscribe_panel">
                 <div className="panel-header">

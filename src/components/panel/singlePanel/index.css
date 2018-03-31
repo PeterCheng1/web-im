@@ -6,4 +6,74 @@
     z-index: 200;
     top: 0;
     left: 120px;
-}
+    .friend-list-wrapper{
+        width:250px;
+        height:100%;
+        overflow:auto;
+        border-right:1px solid #e6e6e6;
+        position:relative;
+        .sweet-loading{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .friend-item{
+            width:100%;
+            height:60px;
+            line-height:60px;
+            border-bottom:1px solid #e6e6e6;
+            cursor:pointer;
+            transition:all .2s;
+            background:#f3f3f3;
+            position:relative;
+            &.active{
+                background:#7898c54a;
+            }
+            &:hover{
+                background:#b1c9ea4a;
+            }
+            &::after{
+                clear:both;
+                content:"";
+                display:block;
+            }
+            .user-avatar{
+                margin-left:10px;
+                margin-top:9px;
+                width:45px;
+                height:45px;
+                display: inline-block;
+                border: 1px solid;
+            }
+            .user-name{
+                position: relative;
+                top: -35px;
+                font-size: 13px;
+                padding-left: 8px;
+                color: #151313;
+                font-family: sans-serif monospace '微软雅黑';
+            }
+            .user-tag-wrapper{
+                position: absolute;
+                width: 100px;
+                height: 20px;
+                line-height: 20px;
+                left: 62px;
+                top: 18px;
+                margin-top: 2px;
+                .iconfont{
+                    color: #a79999;
+                    color: #a79999;
+                    float: left;
+                    margin-right: 6px;
+                }
+                &::after{
+                    content:"";
+                    display:block;
+                    clear:both;
+                }
+            }
+        }
+    }
+} 

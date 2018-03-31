@@ -6,7 +6,11 @@ const initialState = List([]);
 export default function blackReducer (state=initialState,action){
     switch (action.type) {
         case BLACK_LISTS_UPDATE:
-            return List(action.playload.blackLists);
+            let newblackLists = [];
+            for(let i in action.playload.blackLists) {
+                newblackLists.push(action.playload.blackLists[i])
+            }
+            return List(newblackLists);
         default:
             return state;
     }

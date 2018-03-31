@@ -3,12 +3,14 @@ import {safeRender} from '@assets/js/safeRender'
 import './index.css';
 import DefalutPanel from '@components/panel/defalutPanel/index.js';
 import SubscribePanel from '@components/panel/subscribePanel/index.js'
+import BlackPanel from '@components/panel/blackPanel/index.js'
 import classnames from 'classnames';
 import {connect} from 'react-redux'
 @safeRender
 @connect(state=>{
     return {
-        subscribeMessage:state.get('subscribe')
+        subscribeMessage:state.get('subscribe'),
+        blackLists:state.get('black')
     }
 })
 class PersonalPanel extends Component {
@@ -53,6 +55,9 @@ class PersonalPanel extends Component {
                         <div className="common-panel" style={rightPanelType === 'subscribe' ? {} : hideStyle}>
                             <SubscribePanel/>
                         </div>
+                        <div className="common-panel" style={rightPanelType === 'black' ? {} : hideStyle}>
+                            <BlackPanel/>
+                        </div>                        
                     </div>
                 </div>)
     }

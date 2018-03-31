@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {safeRender} from '@assets/js/safeRender';
-import { Modal ,Input} from 'antd';
 import './index.css';
+import QModal from '@components/modal/index.js'
 import {mergeProps} from '@assets/js/mergeProps.js'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
@@ -18,6 +18,9 @@ class PanelTab extends Component {
         this.state = {
             smallPanel:false
         }
+    }
+
+    componentDidMount() {
     }
 
     tabTransfrom = (type,e)=>{
@@ -41,6 +44,10 @@ class PanelTab extends Component {
         hashHistory.push({
             pathname:'/'
         })
+    }
+
+    openModel=(type,e)=>{
+        this.modal.getWrappedInstance().openModal(type);
     }
     render() {
         let {pathname} = this.props.location;
@@ -92,6 +99,7 @@ class PanelTab extends Component {
                             <span className="title">退出登陆</span>                                                     
                         </div>
                     </div>
+                    <QModal ref={modal => this.modal = modal}/>
                 </div>)
     }
 }

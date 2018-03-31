@@ -19,10 +19,13 @@ import subscribeReducer from '@data/reducers/subscribeReducer.js'
 
 import blackReducer from '@data/reducers/blackReducer.js'
 
+import friendReducer from '@data/reducers/friendReducer.js'
+
 const reducers = {
     login:loginReducer,
     subscribe:subscribeReducer,
-    black:blackReducer
+    black:blackReducer,
+    friend:friendReducer
 }
 
 const _reducers = combineReducers(reducers)
