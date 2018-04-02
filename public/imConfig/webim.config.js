@@ -18,8 +18,8 @@ WebIM.config = {
     /*
      * Application AppKey
      */
-    appkey: '1101180312099081#webim-owl',
-
+    // appkey: '1101180312099081#webim-owl',
+    appkey:'easemob-demo#chatdemoui',
     /*
      * Whether to use wss
      * @parameter {Boolean} true or false

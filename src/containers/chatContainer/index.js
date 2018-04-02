@@ -68,6 +68,15 @@ class ChatContainer extends Component {
                 // 查询黑名单，将好友拉黑，将好友从黑名单移除都会回调这个函数，list则是黑名单现有的所有好友信息
                 this.props.blackListsUpdate(BLACK_LISTS_UPDATE,message)
             },
+            onTextMessage:(message)=>{
+                console.log(message,'text')
+            },
+            onEmojiMessage:(messgae)=>{
+                console.log(messgae,'emoji')
+            },
+            onPictureMessage:(message)=>{
+                console.log(message,'pic')
+            },
             onError:(error)=>{
                 console.log(error);
             }

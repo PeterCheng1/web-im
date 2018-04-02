@@ -42,6 +42,7 @@ class SinglePanel extends Component {
                     })}
                 
                 </ul>
+                
             </div>)
     }
 }
