@@ -82,9 +82,11 @@ class MessagePanel extends Component {
     }
 
     calcuScrollHeight=()=> {
+        if(this.props.message.get(this.props.currentChatUser.get('single')).size ===0) return
         let cHeight = this.messageScroll.clientHeight;
         let sHeight = this.messageScroll.scrollHeight;
         let sTop = this.messageScroll.scrollTop;
+        this.checkBubbleItemLook({scrollTop:sTop,clientHeight:cHeight})
         if(this.scroll_top_val > this.messageScroll.scrollTop){//向上
             this.scrollLock = true;
             clearTimeout(this.scrollLockTimer)
@@ -92,7 +94,6 @@ class MessagePanel extends Component {
                 this.scrollLock = false;
             },60000)
         }else if(this.scroll_top_val < this.messageScroll.scrollTop){//向下
-            console.log(cHeight,sHeight,this.messageScroll.scrollTop)
             if(this.scrollLock && (cHeight >  (sHeight - this.messageScroll.scrollTop-120))) {
                 this.scrollLock = false;
                 clearTimeout(this.scrollLockTimer)
@@ -105,6 +106,12 @@ class MessagePanel extends Component {
             }
         }
         this.scroll_top_val = this.messageScroll.scrollTop;
+    }
+
+    checkBubbleItemLook(scrollVal) {
+        for(let i in this.bubble) {
+            this.bubble[i].getWrappedInstance().itemStateCheck(scrollVal)
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -145,11 +152,13 @@ class MessagePanel extends Component {
                                 let showTime;
                                 if(idx === 0) {
                                     showTime  = true
-                                }else if (dataObj.date - currentMsgLists[idx-1].date > 60000){
+                                 }else if (dataObj.date - currentMsgLists[idx-1].date > 60000){
                                     showTime = true
                                 }
                                 return (
-                                    <BubbleItem className="message-item" showTime={showTime} key={dataObj.id} {...dataObj}/>
+                                    <BubbleItem ref={item => {if(!this.bubble){
+                                        this.bubble={}
+                                    } this.bubble[dataObj.id] = item}} className="message-item" showTime={showTime} key={dataObj.id} {...dataObj}/>
                                 )
                             })
                             :null

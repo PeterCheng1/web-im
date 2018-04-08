@@ -6,7 +6,7 @@ import {avatarLists} from '@assets/js/avatar.js';
 import { Spin, Icon } from 'antd';
 import {mergeProps} from '@assets/js/mergeProps.js';
 import {createAction} from '@assets/js/create.js';
-import {MESSAGE_LISTS_DIFFTIME_UPDATE} from '@data/actions/actionTypes.js';
+import {MESSAGE_LISTS_DIFFTIME_UPDATE,MESSAGE_LISTS_STATE_UPDATE} from '@data/actions/actionTypes.js';
 import classnames from 'classnames';
 const loadingIcon = <Icon type="loading-3-quarters" style={{ fontSize: 24 }} spin />;
 const successIcon = <Icon type="check-circle" style={{ fontSize: 20 }}/>
@@ -24,9 +24,12 @@ const successIcon = <Icon type="check-circle" style={{ fontSize: 20 }}/>
     return {
         singleMessageTimeDiffUpdate:(type,playload)=>{
             return dispatch(createAction(type,'msgObj',playload))
+        },
+        singleMessageStateUpdate:(type,playload)=>{
+            return dispatch(createAction(type,'message',playload))
         }
     }
-},mergeProps)
+},mergeProps,{ withRef: true})
 class BubbleItem extends Component {
     constructor(props) {
         super(props);
@@ -48,6 +51,15 @@ class BubbleItem extends Component {
             this.props.singleMessageTimeDiffUpdate(MESSAGE_LISTS_DIFFTIME_UPDATE,msgObj)
         }
     }
+
+    itemStateCheck(valObj) {
+        let BubbleItemOffsetTop = this.bubbleItemWrapper.offsetTop
+        let {state,fromMe,id,from} = this.props;
+        let {scrollTop,clientHeight} = valObj
+        if(!fromMe && ( scrollTop<BubbleItemOffsetTop && BubbleItemOffsetTop < (scrollTop + clientHeight)) && state !==4 ){
+            this.props.singleMessageStateUpdate(MESSAGE_LISTS_STATE_UPDATE,{id,state:4,singleRoom:from})
+        }
+    }
     render () {
         let {fromMe,from,date,data,to,state,showTime,diffTime} = this.props;
         let avatar = avatarLists[parseInt(Math.random())]
@@ -55,13 +67,15 @@ class BubbleItem extends Component {
             'is-FromMe-wrapper' : fromMe,
             'is-no-FromMe-wrapper':!fromMe
         })
-        return (<div i="bubble_item_wrapper">
+        console.log(state)
+        return (<div i="bubble_item_wrapper" ref={wrapper => this.bubbleItemWrapper = wrapper}>
                     {showTime ? <div className="item-time"> <span className= "time">{diffTime}</span></div> : null}
                     <div className={itemClass}>
                         <img className="message-avatar" src={avatar} alt="头像"/>
                         <span className="message-content">{data}</span>
                         {state === 0 ? <Spin indicator={loadingIcon} /> : null}
                         {(state === 1|| state === 2) ? successIcon :null}
+                        {state === 4 ? <span>已阅读</span> : null}
                     </div>                     
                 </div>)
     }

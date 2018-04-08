@@ -19,6 +19,7 @@ export default function singleReducer (state=initialState,action) {
             }
         case MESSAGE_LISTS_STATE_UPDATE:
             var singleRoom =action.playload.message.singleRoom;
+            
             return state.update(singleRoom,(msgLists)=>{
                 return msgLists.map((msg,idx)=>{
                     if(msg.id === action.playload.message.id) {
