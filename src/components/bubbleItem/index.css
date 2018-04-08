@@ -1,0 +1,91 @@
+[i="bubble_item_wrapper"]{
+    width:100%;
+    margin:13px 0px;
+    .item-time{
+        text-align: center;
+        font-size: 13px;
+        color: #a09494;
+        border: 1px solid #e6e6e6;
+        width: 50px;
+        margin: 0 auto;
+        border-radius: 6px;
+        padding: 2px 5px;
+    }
+    .is-FromMe-wrapper{
+        &::after{
+            display:block;
+            content:"";
+            clear:both;
+        }
+        .message-avatar{
+            width:35px;
+            height:35px;
+            border-radius:3px;
+            float:right;
+            margin:10px 10px 0px 5px;
+        }
+        .message-content{
+            background:#fff;
+            word-break: break-all;
+            max-width: 81%; 
+            float:right;
+            margin-top:8px;
+            padding:11px;
+            border-radius:4px;
+            &:after{
+                width: 0;
+                height: 0;
+                border-top: 50px solid transparent;
+                border-right: 100px solid red;
+                border-bottom: 50px solid transparent;
+            }
+        }
+        .ant-spin-spinning,.anticon-check-circle{
+            margin:14px 13px 0 0;
+            float:right;
+        }
+        .anticon-check-circle{
+            color: #08a1bfa6;
+            margin: 18px 13px 0 0;
+        }
+    }
+    .is-no-FromMe-wrapper{
+        &::after{
+            display:block;
+            content:"";
+            clear:both;
+        }
+        .message-avatar{
+            width:35px;
+            height:35px;
+            border-radius:3px;
+            float:left;
+            margin:10px 10px 0px 5px;
+        }
+        .message-content{
+            background:#fff;
+            word-break: break-all;
+            max-width: 81%; 
+            float:left;
+            margin-top:8px;
+            padding:11px;
+            border-radius:4px;
+            &:after{
+                width: 0;
+                height: 0;
+                border-top: 50px solid transparent;
+                border-right: 100px solid red;
+                border-bottom: 50px solid transparent;
+            }
+        }
+        .ant-spin-spinning,.anticon-check-circle{
+            margin:14px 0 0 10px;
+            float:left;
+        }
+        .anticon-check-circle{
+            color: #08a1bfa6;
+            margin: 18px 13px 0 0;
+        }
+    }
+
+}

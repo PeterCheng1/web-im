@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Map,List,fromJS} from 'immutable'
+import {Map,List,fromJS} from 'immutable';
+import { message } from 'antd';
 import {safeRender} from '@assets/js/safeRender'
 import {mergeProps} from '@assets/js/mergeProps.js';
 import './index.css';
@@ -12,6 +13,7 @@ import {createAction} from '@assets/js/create.js';
 import {FRIEND_SUBSCRIBE_ADD,FRIEND_SUBSCRIBE_REMOVE} from '@data/actions/actionTypes.js';
 import {BLACK_LISTS_UPDATE} from '@data/actions/actionTypes.js';
 import {FRIEND_LISTS_ADD,FRIEND_LISTS_REMOVE,FRIEND_LISTS_UPDATE} from '@data/actions/actionTypes.js';
+import {MESSAGE_LISTS_UPDATE,MESSAGE_LISTS_STATE_UPDATE} from '@data/actions/actionTypes.js';
 import {connect} from 'react-redux';
 @safeRender
 @connect(state=>{
@@ -33,6 +35,12 @@ import {connect} from 'react-redux';
         },
         addFriendList:(type,playload)=>{
             return dispatch(createAction(type,'friendLists',playload))
+        },
+        singleMessageListsUpdate:(type,playload)=>{
+            return dispatch(createAction(type,'message',playload))
+        },
+        singleMessageStateUpdate:(type,playload)=>{
+            return dispatch(createAction(type,'message',playload))
         }
     }
 },
@@ -52,6 +60,7 @@ class ChatContainer extends Component {
     bindSdkEvent() {
         window.conn.listen({
             onOpened:(message)=>{
+                console.log('opened ok')
                 this.getBlackList();
                 this.getFriendLists();
             },
@@ -68,21 +77,68 @@ class ChatContainer extends Component {
                 // 查询黑名单，将好友拉黑，将好友从黑名单移除都会回调这个函数，list则是黑名单现有的所有好友信息
                 this.props.blackListsUpdate(BLACK_LISTS_UPDATE,message)
             },
-            onTextMessage:(message)=>{
+            onTextMessage:(message)=>{//state :0未送达服务器(即是否发送成功) 1送达(送达服务器) 2已送达(已送达想发送的人,担未查看) 3已查看
+                message.state = 2      
+                message.fromMe = false;
+                message.singleRoom = message.from;     
+                message.date = Date.now();  
+                this.props.singleMessageListsUpdate(MESSAGE_LISTS_UPDATE,message)
+                this.messageHadDelivered(message);
                 console.log(message,'text')
             },
-            onEmojiMessage:(messgae)=>{
-                console.log(messgae,'emoji')
+            onEmojiMessage:(message)=>{
+                message.state = 2       
+                message.fromMe = false;       
+                message.singleRoom = message.from; 
+                message.date = Date.now();        
+                this.props.singleMessageListsUpdate(MESSAGE_LISTS_UPDATE,message);
+                this.messageHadDelivered(message);
+                console.log(message,'emoji')
             },
             onPictureMessage:(message)=>{
+                message.state = 2    
+                message.fromMe = false;    
+                message.singleRoom = message.from; 
+                message.date = Date.now();                      
+                this.props.singleMessageListsUpdate(MESSAGE_LISTS_UPDATE,message);
+                this.messageHadDelivered(message);
                 console.log(message,'pic')
             },
             onError:(error)=>{
+                message.error('链接失败，请等候，或者重新登陆！！')
                 console.log(error);
+            },
+            onReceivedMessage:(message)=>{
+                // message.state = 2               
+                // this.props.singleMessageStateUpdate(MESSAGE_LISTS_STATE_UPDATE,message);
+                // console.log(message)
+            },
+            onDeliveredMessage:(message)=>{
+                // message.state = 2               
+                // this.props.singleMessageStateUpdate(MESSAGE_LISTS_STATE_UPDATE,message);
+                //对方收到已送达回执的回调函数是onReadMessage
+            },
+            onReadMessage:(message)=>{
+                message.state = 3             
+                // this.props.singleMessageStateUpdate(MESSAGE_LISTS_STATE_UPDATE,message);
+                // console.log(message)
             }
         })
     }
 
+    /**
+     * 消息回执处理 delivery是否发送成功
+    */
+    messageHadDelivered(message) {
+        const bodyId = message.id;         // 需要发送已读回执的消息id
+        const msgId = window.conn.getUniqueId();// 生成本地消息id
+        const msg = new WebIM.message('delivery', msgId);
+        msg.set({
+            id: bodyId
+            ,to: message.from
+        });
+        window.conn.send(msg.body);
+    }
     getFriendLists() {
         window.conn.getRoster({
             success:  ( roster ) =>{

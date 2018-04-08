@@ -23,12 +23,15 @@ import friendReducer from '@data/reducers/friendReducer.js'
 
 import singleReucer from '@data/reducers/singleMessageReducer.js'
 
+import currentReucer from '@data/reducers/currentChat.js'
+
 const reducers = {
     login:loginReducer,
     subscribe:subscribeReducer,
     black:blackReducer,
     friend:friendReducer,
-    single:singleReucer
+    singleMessage:singleReucer,
+    current:currentReucer
 }
 
 const _reducers = combineReducers(reducers)

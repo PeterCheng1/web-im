@@ -1,5 +1,6 @@
-import {MESSAGE_LISTS_UPDATE} from '@data/actions/actionTypes.js';
+import {MESSAGE_LISTS_UPDATE,MESSAGE_LISTS_STATE_UPDATE,MESSAGE_LISTS_DIFFTIME_UPDATE} from '@data/actions/actionTypes.js';
 import {Map} from 'immutable';
+import Item from '_antd@3.3.3@antd/lib/list/Item';
 /**
  * {
  *  sheldon2001:[],
@@ -7,15 +8,35 @@ import {Map} from 'immutable';
  * }
 */
 const initialState = Map({})
-export default function singleReducer (state,action) {
+export default function singleReducer (state=initialState,action) {
     switch (action.type) {
         case MESSAGE_LISTS_UPDATE:
-            let passUser = action.playload.massage.from; 
-            if(state.get(passUser)){
-                return state.setIn(passUser,[...state.get(passUser),action.playload.massage])
+            var singlecharRoom =action.playload.message.singleRoom;
+            if(state.has(singlecharRoom)){
+                return state.set(singlecharRoom,[...state.get(singlecharRoom),action.playload.message])
             }else{
-                return state.setIn(passUser,[action.playload.massage])
+                return state.set(singlecharRoom,[action.playload.message])
             }
+        case MESSAGE_LISTS_STATE_UPDATE:
+            var singleRoom =action.playload.message.singleRoom;
+            return state.update(singleRoom,(msgLists)=>{
+                return msgLists.map((msg,idx)=>{
+                    if(msg.id === action.playload.message.id) {
+                        msg.state = action.playload.message.state
+                    }
+                    return msg;
+                })
+            })
+        case MESSAGE_LISTS_DIFFTIME_UPDATE:
+             var {diffTime,id,singleRoom} = action.playload.msgObj;
+            return state.update(singleRoom,(msgLists)=>{
+                return msgLists.map((msg,idx)=>{
+                    if(msg.id === id) {
+                        msg.diffTime = diffTime
+                    }
+                    return msg;                    
+                })
+            })
         default:
             return state;
     }
