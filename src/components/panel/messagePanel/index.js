@@ -92,7 +92,8 @@ class MessagePanel extends Component {
                 this.scrollLock = false;
             },60000)
         }else if(this.scroll_top_val < this.messageScroll.scrollTop){//向下
-            if(this.scrollLock && (cHeight <  (sHeight - cHeight+200))) {
+            console.log(cHeight,sHeight,this.messageScroll.scrollTop)
+            if(this.scrollLock && (cHeight >  (sHeight - this.messageScroll.scrollTop-120))) {
                 this.scrollLock = false;
                 clearTimeout(this.scrollLockTimer)
             }
