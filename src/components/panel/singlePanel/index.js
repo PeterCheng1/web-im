@@ -36,6 +36,8 @@ class SinglePanel extends Component {
     render() {
         let {friendLists,blackLists,hadGetFriendLists,current} = this.props;
         let {currentPassUser} = this.state;
+        let currentChatUser = this.props.current.get('single');
+        console.log(currentChatUser,'current')
         return (<div i="single_panel_wrapper">
                     <ul className="friend-list-wrapper">
                         <div className='sweet-loading'>
@@ -50,7 +52,9 @@ class SinglePanel extends Component {
                             let Buser = blackLists.filter((u,idx)=>{
                                 return u.name === frined.name
                             })
-                        return <li className="friend-item" key={frined.name} onClick={e=>this.currentChatUserUpdate(frined.name,e)}>
+                            return Buser.size === 0 
+                                    ? 
+                                 <li className={currentChatUser === frined.name ? 'friend-item active' : 'friend-item'} key={frined.name} onClick={e=>this.currentChatUserUpdate(frined.name,e)}>
                                     <div className="user-avatar">
                                     {/* <img className="user-avatar" src={firend.avatar} alt="用户头像"/> */}
                                     </div>
@@ -59,6 +63,8 @@ class SinglePanel extends Component {
                                         {Buser.size !== 0 ? <i className="iconfont icon-jinzhi"></i> : null}
                                     </span>
                                 </li>
+                                    :
+                                    null
                         })}
                     
                     </ul>

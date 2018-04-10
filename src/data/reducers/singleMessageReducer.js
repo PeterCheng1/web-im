@@ -24,6 +24,9 @@ export default function singleReducer (state=initialState,action) {
                 return msgLists.map((msg,idx)=>{
                     if(msg.id === action.playload.message.id) {
                         msg.state = action.playload.message.state
+                        if(action.playload.message.msgId) {
+                            msg.id = action.playload.message.msgId
+                        }
                     }
                     return msg;
                 })

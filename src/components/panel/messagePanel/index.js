@@ -8,6 +8,7 @@ import logo from '@assets/images/logo/logo.png';
 import {createAction} from '@assets/js/create.js';
 import {avatarLists} from '@assets/js/avatar.js';
 import BubbleItem from '@components/bubbleItem/index.js'
+import InputPanel from '@components/inputPanel/index.js'
 import { Input ,Button} from 'antd';
 const { TextArea } = Input;
 @safeRender
@@ -38,26 +39,6 @@ class MessagePanel extends Component {
         this.scrollLockTimer = null;
     }
 
-    testEnter=()=>{
-        let currentUser = this.props.currentChatUser.get('single')
-        var id = window.conn.getUniqueId();                 // 生成本地消息id
-        var msg = new WebIM.message('txt', id);      // 创建文本消息
-        msg.set({
-            msg: `message content ${Math.random()}`,                  // 消息内容
-            to: currentUser,                          // 接收消息对象（用户id）
-            roomType: false,
-            success :(id, serverMsgId) =>{
-                this.props.singleMessageStateUpdate(MESSAGE_LISTS_STATE_UPDATE,{id,state:1,singleRoom:msg.body.to})
-            },
-            fail: function(e){
-                console.log("Send private text error");
-            }
-        });
-        msg.body.chatType = 'singleChat';
-        window.conn.send(msg.body);
-        this.props.singleMessageListsUpdate(MESSAGE_LISTS_UPDATE,this.createMsgObj(msg))
-    }
-
     scrollAdjust() {
         let cHeight = this.messageScroll.clientHeight;
         let sHeight = this.messageScroll.scrollHeight;
@@ -86,7 +67,7 @@ class MessagePanel extends Component {
         let cHeight = this.messageScroll.clientHeight;
         let sHeight = this.messageScroll.scrollHeight;
         let sTop = this.messageScroll.scrollTop;
-        this.checkBubbleItemLook({scrollTop:sTop,clientHeight:cHeight})
+        this.checkBubbleItemLook({scrollTop:sTop,clientHeight:cHeight,scrollHeight:sHeight})
         if(this.scroll_top_val > this.messageScroll.scrollTop){//向上
             this.scrollLock = true;
             clearTimeout(this.scrollLockTimer)
@@ -110,7 +91,10 @@ class MessagePanel extends Component {
 
     checkBubbleItemLook(scrollVal) {
         for(let i in this.bubble) {
-            this.bubble[i].getWrappedInstance().itemStateCheck(scrollVal)
+            let BubbleItem = this.bubble[i].getWrappedInstance()
+            if( BubbleItem && BubbleItem.itemStateCheck) {
+                BubbleItem.itemStateCheck(scrollVal)
+            }
         }
     }
 
@@ -118,18 +102,6 @@ class MessagePanel extends Component {
         if(!this.scrollLock && (this.messageScroll.scrollHeight > this.messageScroll.clientHeight)){
             this.scrollAdjust()
         }
-    }
-
-    createMsgObj (msg) {
-        let msgObj = {} 
-        msgObj.sourceMsg = msgObj.data = msg.body.msg;
-        msgObj.singleRoom = msgObj.to = msg.body.to;
-        msgObj.id = msg.id;
-        msgObj.from =  (this.props.user.get('loginUser')['username']);
-        msgObj.state = 0;
-        msgObj.date = Date.now();
-        msgObj.fromMe = true; 
-        return msgObj
     }
 
     render() {
@@ -164,8 +136,9 @@ class MessagePanel extends Component {
                             :null
                         }
                     </ul>
-                    <TextArea placeholder="Autosize height based on content lines" autosize />
-                    <Button type="primary" onClick={this.testEnter}>提交</Button>
+                    <InputPanel />
+                    {/* <TextArea placeholder="Autosize height based on content lines" autosize /> */}
+                    {/* <Button type="primary" onClick={this.testEnter}>提交</Button> */}
                 </div>)
     }
 }

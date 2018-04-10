@@ -1,12 +1,16 @@
 [i="bubble_item_wrapper"]{
     width:100%;
     margin:13px 0px;
+    overflow:hidden;
+    pre{
+        overflow: hidden;
+    }
     .item-time{
         text-align: center;
         font-size: 13px;
         color: #a09494;
         border: 1px solid #e6e6e6;
-        width: 50px;
+        width: 90px;
         margin: 0 auto;
         border-radius: 6px;
         padding: 2px 5px;
@@ -25,7 +29,7 @@
             margin:10px 10px 0px 5px;
         }
         .message-content{
-            background:#fff;
+            background: #24b5cad4;
             word-break: break-all;
             max-width: 81%; 
             float:right;
@@ -47,6 +51,14 @@
         .anticon-check-circle{
             color: #08a1bfa6;
             margin: 18px 13px 0 0;
+        }
+        .iconfont{
+            float: right;
+            font-size: 20px;
+            position: relative;
+            top: 19px;
+            right: 5px;
+            color: #0a93ce;
         }
     }
     .is-no-FromMe-wrapper{
@@ -77,6 +89,14 @@
                 border-right: 100px solid red;
                 border-bottom: 50px solid transparent;
             }
+        }
+        .iconfont{
+            font-size: 20px;
+            display: inline-block;
+            position: relative;
+            top: 19px;
+            left: 5px;
+            color: #0a93ce;
         }
         .ant-spin-spinning,.anticon-check-circle{
             margin:14px 0 0 10px;

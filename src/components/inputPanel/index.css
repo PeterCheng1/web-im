@@ -1,0 +1,27 @@
+[i="input_panel_wrapper"] {
+    height: 185px;
+    width: 100%;
+    .input-header{
+        height:42px;
+    }
+    .input-wrapper{
+        outline: none;
+        height: 143px;
+        max-height: 143px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 10px 12px;
+        text-align: justify;
+    }
+    .anticon{
+        line-height:30px;
+        margin-left:15px;
+        margin-top:8px;
+        color:#bfbebe;
+        transition:all .3s;
+        cursor:pointer;
+        &:hover{
+            color:#0581a278;
+        }
+    }
+}

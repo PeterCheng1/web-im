@@ -19,7 +19,8 @@ import {connect} from 'react-redux';
 @connect(state=>{
     return {
         subscribe:state.get('subscribe'),
-        blackLists:state.get('black')
+        blackLists:state.get('black'),
+        currentChatUser:state.get('current'),
     }
 },
 (dispatch)=>{
@@ -84,7 +85,7 @@ class ChatContainer extends Component {
                 message.date = Date.now();  
                 this.props.singleMessageListsUpdate(MESSAGE_LISTS_UPDATE,message)
                 this.messageHadDelivered(message);
-                console.log(message,'text')
+                console.log(message)
             },
             onEmojiMessage:(message)=>{
                 message.state = 2       
@@ -119,9 +120,9 @@ class ChatContainer extends Component {
                 //对方收到已送达回执的回调函数是onReadMessage
             },
             onReadMessage:(message)=>{
-                message.state = 3             
-                // this.props.singleMessageStateUpdate(MESSAGE_LISTS_STATE_UPDATE,message);
-                // console.log(message)
+                let id = message.mid
+                let singleRoom = this.props.currentChatUser.get('single');
+                this.props.singleMessageStateUpdate(MESSAGE_LISTS_STATE_UPDATE,{id,state:3,singleRoom:singleRoom});
             }
         })
     }
