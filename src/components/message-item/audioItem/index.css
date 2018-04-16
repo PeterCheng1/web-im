@@ -1,0 +1,86 @@
+.sound_item_wrapper{
+    .no-icon-wrapper{
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        .anticon-sound{
+            font-size:80px;
+            line-height:100px;
+        }
+    }
+    .icon-wrapper{
+        width:200px;
+        position:relative;
+        &::after{
+            content:"";
+            clear:both;
+            display:block;
+        }
+        .audio-btn-wrapper{
+            position: absolute;
+            top: 50%;
+            right: 50%;
+            transform: translate(50%,-50%);
+            .anticon{
+                cursor:pointer;
+                color:#fff;
+            }
+        }
+        img{
+            width: 200px;
+            height: 100px;
+            border-radius: 10px;
+        }
+        .icon-zhongfubofang{
+            position: absolute;
+            top: 71px;
+            right: 37px;
+            font-size: 26px;
+            color:#fff;
+            opacity: 0.6;
+            cursor: pointer;
+            &:hover{
+                opacity: 1;
+            }
+        }
+        .icon-xiazai{
+            position: absolute;
+            top: 74px;
+            color:#fff;
+            opacity: 0.6;
+            cursor: pointer;
+            right: 8px;
+            &:hover{
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.is-no-FromMe-wrapper{
+    .sound_item_wrapper {
+        .icon-zhongfubofang{
+            position: absolute;
+            top: 71px;
+            left: 137px;
+            font-size: 26px;
+            color:#fff;
+            opacity: 0.6;
+            cursor: pointer;
+            &:hover{
+                opacity: 1;
+            }
+        }
+        .icon-xiazai{
+            position: absolute;
+            top: 74px;
+            color:#fff;
+            opacity: 0.6;
+            cursor: pointer;
+            left: 170px;
+            &:hover{
+                opacity: 1;
+            }
+        }
+    }
+}

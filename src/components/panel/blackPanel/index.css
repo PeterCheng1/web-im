@@ -31,8 +31,8 @@
                 width: 230px;
                 border-radius:5px;
                 .user-avatar{
-                    width:35px;
-                    height:35px;
+                    width:40px;
+                    height:40px;
                     border:1px solid #e6e6e6;
                     border-radius:100%;
                     display:inline-block;
@@ -43,6 +43,11 @@
                     position: relative;
                     top: -12px;
                     margin-left:4px;
+                }
+                img{
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 100%;                
                 }
                 .button-wrapper{
                     cursor:pointer;

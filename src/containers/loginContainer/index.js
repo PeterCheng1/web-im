@@ -6,7 +6,6 @@ import './index.css';
 import classnames from 'classnames';
 import Login from '@components/login/index.js';
 import Sign from '@components/sign/index.js';
-
 @safeRender
 class LoginContainer extends Component {
     constructor(props) {

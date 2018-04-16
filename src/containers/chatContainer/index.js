@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Map,List,fromJS} from 'immutable';
 import { message } from 'antd';
+import {avatarLists} from '@assets/js/avatar.js';
 import {safeRender} from '@assets/js/safeRender'
 import {mergeProps} from '@assets/js/mergeProps.js';
 import './index.css';
@@ -64,15 +64,13 @@ class ChatContainer extends Component {
                 console.log('opened ok')
                 this.getBlackList();
                 this.getFriendLists();
+                this.getGroupLists();
             },
             onPresence:(message)=>{
                 this.handlePresence(message)
             },
             onRoster:(message)=>{
                 this.getFriendLists();
-            },
-            onInviteMessage:(message)=>{
-
             },
             onBlacklistUpdate:(message)=>{
                 // 查询黑名单，将好友拉黑，将好友从黑名单移除都会回调这个函数，list则是黑名单现有的所有好友信息
@@ -83,9 +81,10 @@ class ChatContainer extends Component {
                 message.fromMe = false;
                 message.singleRoom = message.from;     
                 message.date = Date.now();  
+                message.type = 'text'
                 this.props.singleMessageListsUpdate(MESSAGE_LISTS_UPDATE,message)
                 this.messageHadDelivered(message);
-                console.log(message)
+                // console.log(message)
             },
             onEmojiMessage:(message)=>{
                 message.state = 2       
@@ -94,16 +93,29 @@ class ChatContainer extends Component {
                 message.date = Date.now();        
                 this.props.singleMessageListsUpdate(MESSAGE_LISTS_UPDATE,message);
                 this.messageHadDelivered(message);
-                console.log(message,'emoji')
+                // console.log(message,'emoji')
             },
             onPictureMessage:(message)=>{
+                // console.log(message)
                 message.state = 2    
                 message.fromMe = false;    
                 message.singleRoom = message.from; 
-                message.date = Date.now();                      
+                message.date = Date.now();    
+                message.type = 'image'                  
                 this.props.singleMessageListsUpdate(MESSAGE_LISTS_UPDATE,message);
                 this.messageHadDelivered(message);
-                console.log(message,'pic')
+                // console.log(message,'pic')
+            },
+            onAudioMessage:(message)=>{
+                // console.log(message)
+                message.state = 2    
+                message.fromMe = false;    
+                message.singleRoom = message.from; 
+                message.date = Date.now();    
+                message.type = 'audio'                  
+                this.props.singleMessageListsUpdate(MESSAGE_LISTS_UPDATE,message);
+                this.messageHadDelivered(message);
+                // console.log(message,'audio')
             },
             onError:(error)=>{
                 message.error('链接失败，请等候，或者重新登陆！！')
@@ -123,6 +135,12 @@ class ChatContainer extends Component {
                 let id = message.mid
                 let singleRoom = this.props.currentChatUser.get('single');
                 this.props.singleMessageStateUpdate(MESSAGE_LISTS_STATE_UPDATE,{id,state:3,singleRoom:singleRoom});
+            },
+            onCreateGroup:(message)=>{
+                // console.log(message,'onMutedMessage')
+            },
+            onInviteMessage:(message)=>{
+                // console.log(message,'onInviteMessage')
             }
         })
     }
@@ -154,6 +172,9 @@ class ChatContainer extends Component {
                 */
                 let friendLists = roster.filter((friend,idx)=>{
                     return friend.subscription === 'both'
+                }).map((friend,idx)=>{
+                     friend.avatar = avatarLists[parseInt(Math.random()*avatarLists.length-1)]
+                     return friend;
                 })
                 this.props.addFriendList(FRIEND_LISTS_ADD,friendLists)
                 this.setState({
@@ -166,11 +187,27 @@ class ChatContainer extends Component {
           });
     }
 
+    getGroupLists() {
+        // 列出当前登录用户加入的所有群组
+        let options = {
+            success:(groupLists)=>{
+                // console.log(groupLists,'groupLists')
+            },
+            error :(err)=>{
+                if(err){
+                    console.log(err)
+                }
+            }
+        }
+        window.conn.getGroup(options);
+    }
+
     getBlackList() {
         window.conn.getBlacklist();
     }
 
     handlePresence(e) {
+        // console.log(e,'handlePresence')
         switch (e.type) {
             case 'subscribe':
                 this.props.addSubscribeMsg(FRIEND_SUBSCRIBE_ADD,e)

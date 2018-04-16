@@ -3,6 +3,7 @@ import './index.css';
 import {safeRender} from '@assets/js/safeRender'
 import { Button } from 'antd';
 import {connect} from 'react-redux';
+import {avatarLists} from '@assets/js/avatar.js';
 
 @safeRender
 @connect(state=>{
@@ -43,7 +44,7 @@ class BlackPanel extends Component {
                             {this.props.blackLists.map((user,idx)=>{
                                 return <li className="list-content" key={user.name}>
                                         <div className="user-avatar">
-                                            {/* <img src={user.avatar} alt="用户头像"> */}
+                                            <img src={avatarLists[parseInt(Math.random()*avatarLists.length-1)]} alt="用户头像" />
                                         </div>
                                         <span className="user-name">{user.name}</span>
                                         <span className="button-wrapper" onClick={e=>this.removeBlackList(user)}>

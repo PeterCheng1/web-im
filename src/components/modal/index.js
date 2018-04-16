@@ -4,22 +4,48 @@ import './index.css';
 import { Modal, Button,Input } from 'antd';
 import {connect} from 'react-redux';
 import {mergeProps} from '@assets/js/mergeProps.js'
-
+import {CURRENT_SINGLE_NONE} from '@data/actions/actionTypes.js';
+import {createAction} from '@assets/js/create.js';
+import { Select, Radio } from 'antd';
+const Option = Select.Option;
+const { TextArea } = Input;
 @safeRender
 @connect(state=>{
     return {
             friendLists:state.get('friend'),
-            blackLists:state.get('black')
+            blackLists:state.get('black'),
+            currentChatUser:state.get('current'),
         }
-},undefined,mergeProps,{ withRef: true })
+},dispatch=>{
+    return {
+        noneCurrentSession:(type)=>{
+            return dispatch(createAction(type,'none',{}))
+        }
+    }
+},mergeProps,{ withRef: true })
 class QModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
             visible:false,
             title:'QModal',
-            type:'none'
+            type:'none',
+            groupFrom:{
+                groupname:'',
+                desc:'',
+                members:[],
+                public:true,
+                approval:true,
+                allowinvites:true
+            }
         }
+    }
+
+    setFriendSelectOpt =()=> {
+        let {friendLists} = this.props;
+        return friendLists.map((friend,idx)=>{
+            return  (<Option key={friend.name}>{friend.name}</Option>)
+        })
     }
 
     handleType (type) {
@@ -30,6 +56,8 @@ class QModal extends Component {
                 return '删除好友';
             case 'add' : 
                 return '添加好友';
+            case 'createGroup':
+                return '创建群组';
             default:
                 return 'QModal';
         }
@@ -47,24 +75,71 @@ class QModal extends Component {
             case 'remove':
                 this.handleRemoveFriend()
                 break;
+            case 'createGroup':
+                this.handleCreateGroup()
+                break;
             default:
                 break;
         } 
         this.closeModal()
     }
 
+    handleCreateGroup () {
+        let {groupFrom} = this.state;
+        let options = {
+            data:groupFrom,
+            success:(respData)=>{
+                console.log(respData,'创建群组成功!!')
+                this.getGroupLists()
+            },
+            error:(err)=>{
+                if(err){
+                    console.log(err,'创建群组失败!!')
+                }
+            }
+        }
+        window.conn.createGroupNew(options);
+    }
+
+    getGroupLists() {
+        // 列出当前登录用户加入的所有群组
+        let options = {
+            success:(groupLists)=>{
+                console.log(groupLists,'groupLists')
+            },
+            error :(err)=>{
+                if(err){
+                    console.log(err)
+                }
+            }
+        }
+        window.conn.getGroup(options);
+    }
+
     closeModal() {
-        this.ModalInput.value = ''
+        if(this.ModalInput) {
+            this.ModalInput.value = ''
+        }
         this.setState({
             visible:false,
-            title:'QModal',
-            type:'none'
+            groupFrom:{
+                groupname:'',
+                desc:'',
+                members:[],
+                public:true,
+                approval:true,
+                allowinvites:true
+            }
         })
     }
 
     handleBlackLists() {
+        let currentPassUser = this.props.currentChatUser.get('single');
         let blackUser = {};
         let inputBlackUserName = this.ModalInput.value.trim();
+        if(inputBlackUserName === currentPassUser) {
+            this.props.noneCurrentSession(CURRENT_SINGLE_NONE )
+        }
         let inputBlackUser = this.props.friendLists.filter((user,idx)=>{
             return user.name === inputBlackUserName
         }).toJS()[0]
@@ -121,6 +196,44 @@ class QModal extends Component {
     handleOk = ()=>{
         this.sdkEventTypeHandle()
     }
+
+    groupInputChange =(type,e)=> {
+        switch (type) {
+            case 'name':
+                let newName = e.target.value
+               this.setState((preState,preProps)=>{
+                   return {groupFrom :Object.assign(preState.groupFrom,{groupname:newName})}
+               })
+            break;
+            case 'desc':
+                let newDesc = e.target.value
+                this.setState((preState,preProps)=>{
+                    return {groupFrom :Object.assign(preState.groupFrom,{desc:newDesc})}
+                })               
+             break;        
+            default:
+                break;
+        }
+    }
+
+    selectOptChange = (value)=>{
+        this.setState((preState,preProps)=>{
+            return {groupFrom:Object.assign(preState.groupFrom,{members:value})}
+        })
+    }
+
+    handlePublicChange = (e)=>{
+        this.setState((preState,preProps)=>{
+            return {groupFrom:Object.assign(preState.groupFrom,{public:e.target.value})}
+        })
+    }
+
+    handleApprovalChange = (e)=>{
+        this.setState((preState,preProps)=>{
+            return {groupFrom:Object.assign(preState.groupFrom,{approval:e.target.value})}
+        })
+    }
+    
     render () {
         let {title} = this.state
         return (<div i="modal_wrapper">
@@ -132,7 +245,48 @@ class QModal extends Component {
                 onOk={this.handleOk}
                 onCancel={this.handleCancel}
                 >
-                <input className="ModalInput" placeholder="请输入用户名" autoFocus ref={input => this.ModalInput = input} />
+                {
+                    title === '创建群组'
+                    ?
+                    <div className="group-msg-wrapper">
+                        <div className="group-name-wrapper">
+                            <span className="title">群组名称:</span>
+                            <Input placeholder="请输入群组名称" value={this.state.groupFrom.groupname} onChange={e => this.groupInputChange('name',e)} ref={name=> this.groupName = name}/>
+                        </div>
+                        <div className="group-desc-wrapper">
+                            <span className="title">群组描述:</span>
+                            <TextArea placeholder="请输入群组描述" value={this.state.groupFrom.desc} onChange={e => this.groupInputChange('desc',e)} ref={desc=> this.groupDec = desc} autosize={{ minRows: 6, maxRows: 12 }} />
+                        </div>     
+                        <div className="group-member-wrapper">
+                            <span className="title">群组成员:</span>
+                            <Select
+                                mode="multiple"
+                                style={{ width: '100%' }}
+                                placeholder="请选择用户成员"
+                                defaultValue={[]}
+                                onChange={this.selectOptChange}
+                            >
+                                {this.setFriendSelectOpt()}
+                            </Select>
+                        </div>   
+                        <div className="group-public-wrapper">
+                            <span className="title">是否公开:</span>
+                            <Radio.Group value={this.state.groupFrom.public} onChange={this.handlePublicChange}>
+                                <Radio.Button value={true}>公开</Radio.Button>
+                                <Radio.Button value={false}>不公开</Radio.Button>
+                            </Radio.Group>
+                        </div>      
+                        <div className="group-approval-wrapper">
+                            <span className="title">是否审批:</span>
+                            <Radio.Group value={this.state.groupFrom.approval} onChange={this.handleApprovalChange}>
+                                <Radio.Button value={true}>审批</Radio.Button>
+                                <Radio.Button value={false}>不审批</Radio.Button>
+                            </Radio.Group>
+                        </div>                                    
+                    </div>
+                    :
+                    <input className="ModalInput" placeholder="请输入用户名" autoFocus ref={input => this.ModalInput = input} />
+                }
             </Modal>
         </div>)
     }

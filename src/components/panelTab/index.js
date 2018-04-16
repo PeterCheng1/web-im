@@ -6,10 +6,12 @@ import {mergeProps} from '@assets/js/mergeProps.js'
 import {hashHistory} from 'react-router'
 import {connect} from 'react-redux';
 import classnames from 'classnames';
+import {avatarLists} from '@assets/js/avatar.js';
 @safeRender
 @connect(state=>{
     return {
-        subscribeMessage:state.get('subscribe')
+        subscribeMessage:state.get('subscribe'),
+        noReadSingleNum:state.get('noRead')
     }
 },undefined,mergeProps)
 class PanelTab extends Component {
@@ -50,6 +52,9 @@ class PanelTab extends Component {
         this.modal.getWrappedInstance().openModal(type);
     }
     render() {
+        let noReadSingleTotalMsg = this.props.noReadSingleNum.get('single').reduce((pre,next)=>{
+            return pre + next
+        },0)
         let {pathname} = this.props.location;
         let singleClass = classnames('iconfont','icon-chat',{
             active:(pathname === '/chat/single/' ? true : false)
@@ -66,14 +71,15 @@ class PanelTab extends Component {
         let hideStyle = {display:'none'}
         return (<div i="panel_tab_wrapper">
                     <div className="avatar-wrapper">
-                        {/* <img src={state.userAvatar} alt="avatar" /> */}
+                        <img src={avatarLists[parseInt(Math.random())]} alt="avatar" />
                     </div>
                     <div className="single-chat">
                         <span className={singleClass} onClick={(e)=>this.tabTransfrom('single',e)}></span>
+                        <span className="msg-num" style={noReadSingleTotalMsg === 0 ? hideStyle : {}}>{noReadSingleTotalMsg}</span>
                     </div>
-                    <div className="group-chat">
+                    {/* <div className="group-chat">
                         <span className={groupClass} onClick={e=>this.tabTransfrom('group',e)}></span>     
-                    </div>
+                    </div> */}
                     <div className="personal-message">
                         <span className={personalClass} onClick={e=>this.tabTransfrom('personal',e)}></span>                                                   
                         <span className="msg-num" style={this.props.subscribeMessage.size === 0 ? hideStyle : {}}>{this.props.subscribeMessage.size}</span>
@@ -90,6 +96,10 @@ class PanelTab extends Component {
                             <span className="iconfont icon-shanchu1" ></span>                         
                             <span className="title">移除好友</span>                                                     
                         </div>
+                        {/* <div className="create-group" onClick={e=>this.openModel('createGroup',e)}>
+                            <span className="iconfont icon-people" ></span>                         
+                            <span className="title">创建群组</span>                                                     
+                        </div> */}
                         <div className="black-friends" onClick={e=>this.openModel('black',e)}>
                             <span className="iconfont icon-heimingdan1"></span>                         
                             <span className="title">添加黑名单</span>                                                     

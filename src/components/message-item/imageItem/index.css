@@ -1,0 +1,15 @@
+.image_item_wrapper {
+    .image-item{
+        width:100%;
+        cursor: pointer;
+    }   
+    .no-icon-wrapper{
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        .anticon-picture{
+            font-size:80px;
+            line-height:100px;
+        }
+    }
+}

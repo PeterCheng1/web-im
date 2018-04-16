@@ -5,6 +5,10 @@
     pre{
         overflow: hidden;
     }
+    .emojione{
+        width:25px;
+        vertical-align: bottom;
+    }
     .item-time{
         text-align: center;
         font-size: 13px;
@@ -44,7 +48,7 @@
                 border-bottom: 50px solid transparent;
             }
         }
-        .ant-spin-spinning,.anticon-check-circle{
+        .ant-spin-spinning,.anticon-check-circle,.anticon-close-circle{
             margin:14px 13px 0 0;
             float:right;
         }
@@ -98,7 +102,7 @@
             left: 5px;
             color: #0a93ce;
         }
-        .ant-spin-spinning,.anticon-check-circle{
+        .ant-spin-spinning,.anticon-check-circle,.anticon-close-circle{
             margin:14px 0 0 10px;
             float:left;
         }

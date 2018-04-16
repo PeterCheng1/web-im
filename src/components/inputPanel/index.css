@@ -1,8 +1,18 @@
 [i="input_panel_wrapper"] {
     height: 185px;
     width: 100%;
+    position:relative;
     .input-header{
         height:42px;
+        .smile-iconfont-wrapper,.picture-iconfont-wrapper,.sound-iconfont-wrapper{
+            display:inline-block;
+            border: none;
+            margin-left: 2px;
+            outline:none;
+        }
+    }
+    .input-button{
+        display:none;
     }
     .input-wrapper{
         outline: none;
@@ -12,6 +22,7 @@
         overflow-x: hidden;
         padding: 10px 12px;
         text-align: justify;
+        font-size:13px;
     }
     .anticon{
         line-height:30px;
