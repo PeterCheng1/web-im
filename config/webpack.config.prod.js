@@ -90,7 +90,10 @@ module.exports = {
     // for React Native Web.
     extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
-      
+      '@data': path.join(__dirname , '../src/data'),
+      '@components':path.join(__dirname , '../src/components'),
+      '@containers':path.join(__dirname , '../src/containers'),
+      '@assets':path.join(__dirname , '../src/assets'),
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
@@ -192,6 +195,12 @@ module.exports = {
                         // https://github.com/facebookincubator/create-react-app/issues/2677
                         ident: 'postcss',
                         plugins: () => [
+                          require("postcss-import"),
+                          require('postcss-current-selector') ,
+                          require('postcss-nested-ancestors'),
+                          require('postcss-nested'),
+                          require('postcss-flexbugs-fixes'),
+                          require('postcss-simple-vars'),
                           require('postcss-flexbugs-fixes'),
                           autoprefixer({
                             browsers: [
