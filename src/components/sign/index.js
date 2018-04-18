@@ -4,6 +4,7 @@ import './index.css';
 import {registerUser} from '@assets/js/registerUser';
 import { message } from 'antd';
 
+@safeRender
 class Sign extends Component {
     constructor (props) {
         super(props);

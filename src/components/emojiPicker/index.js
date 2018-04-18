@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {safeRender} from '@assets/js/safeRender'
 import './index.css';
-import emojione from 'emojione';
-
 @safeRender
 class EmojiPicker extends Component {
     constructor(props) {
@@ -43,6 +41,12 @@ class EmojiPicker extends Component {
 
     componentDidMount() {
         this.initEmojiSwiper()
+        window.EventEmitter3.on('windowClick',()=>{
+            this.closeEmojiPicker()
+        })
+        window.EventEmitter3.on('btnPanelClick',()=>{
+            this.closeEmojiPicker()
+        })
     }
 
     initEmojiSwiper() {
@@ -50,6 +54,7 @@ class EmojiPicker extends Component {
             let emojiSwiper = new window.Swiper ('.swiper-container', {
                 direction: 'horizontal',
                 setWrapperSize :true,
+                stopPropagation: false,
                 pagination: {
                     el: '.swiper-pagination',
                     clickable:true,

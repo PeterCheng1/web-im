@@ -3,8 +3,7 @@ import {safeRender} from '@assets/js/safeRender'
 import './index.css';
 import {connect} from 'react-redux';
 import {createAction} from '@assets/js/create.js'
-import {FRIEND_SUBSCRIBE_ADD,FRIEND_SUBSCRIBE_REMOVE} from '@data/actions/actionTypes.js';
-import {Map,List,fromJS} from 'immutable';
+import {FRIEND_SUBSCRIBE_REMOVE} from '@data/actions/actionTypes.js';
 import { Button } from 'antd';
 import NoneMsgPic from '@assets/images/noneMsg/subscrbei.jpeg'
 @safeRender

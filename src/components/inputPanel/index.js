@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import {safeRender} from '@assets/js/safeRender';
 import EmojiPicker from '@components/emojiPicker/index.js'
 import './index.css';
-import { Spin, Icon } from 'antd';
+import { Icon } from 'antd';
 import {connect} from 'react-redux';
 import {MESSAGE_LISTS_UPDATE,MESSAGE_LISTS_STATE_UPDATE} from '@data/actions/actionTypes.js';
 import {mergeProps} from '@assets/js/mergeProps.js';
 import {createAction} from '@assets/js/create.js';
-import regexMarkdown  from 'gfm-code-block-regex';
-import classnames from 'classnames';
 import { message as andMessage } from 'antd';
 @safeRender
 @connect(state=>{
@@ -136,7 +134,6 @@ class InputPanel extends Component {
                     andMessage.error('可能从音乐软件下载的音频，会导致上传失败!!w.w')
                 },
                 onFileUploadComplete: (data)=> {   // 消息上传成功
-                    console.log('onFileUploadComplete',data)
                     let url = ((window.location.protocol != 'https:' && WebIM.config.isHttpDNS) ? 
                         (window.conn.apiUrl + data.uri.substr(data.uri.indexOf("/", 9))) 
                         : data.uri) + '/' + data.entities[0].uuid;
@@ -167,13 +164,17 @@ class InputPanel extends Component {
         return msgObj
     }
 
-    changeEmojiPickerState = () =>{
+    changeEmojiPickerState = (e) =>{
+        if(e&&e.stopPropagation) {
+            e.stopPropagation()
+        }
         this.emojiPicker.changeEmojiPickerState();
         this.setState((preState,preProps)=>{
             return {
                 emojiPickerState : !preState.emojiPickerState
             }
         })
+        window.EventEmitter3.emit('emojiClick')
     }
 
     selectEmoji = (emoji) =>{

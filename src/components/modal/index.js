@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {safeRender} from '@assets/js/safeRender'
 import './index.css';
-import { Modal, Button,Input } from 'antd';
+import { Modal,Input } from 'antd';
 import {connect} from 'react-redux';
 import {mergeProps} from '@assets/js/mergeProps.js'
 import {CURRENT_SINGLE_NONE} from '@data/actions/actionTypes.js';
@@ -89,7 +89,6 @@ class QModal extends Component {
         let options = {
             data:groupFrom,
             success:(respData)=>{
-                console.log(respData,'创建群组成功!!')
                 this.getGroupLists()
             },
             error:(err)=>{
@@ -105,7 +104,6 @@ class QModal extends Component {
         // 列出当前登录用户加入的所有群组
         let options = {
             success:(groupLists)=>{
-                console.log(groupLists,'groupLists')
             },
             error :(err)=>{
                 if(err){
@@ -151,7 +149,6 @@ class QModal extends Component {
             list: blackUser,
             type: 'jid',
             success: function () {
-                console.log('Add friend to black list success');
                 window.conn.getBlacklist();
             },
             error: function () {

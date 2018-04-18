@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
 import {safeRender} from '@assets/js/safeRender'
-import { Button } from 'antd';
 import {connect} from 'react-redux';
 import {avatarLists} from '@assets/js/avatar.js';
 
@@ -10,10 +9,6 @@ import {avatarLists} from '@assets/js/avatar.js';
     return {blackLists:state.get('black')}
 })
 class BlackPanel extends Component {
-    constructor(props) {
-        super(props)
-    }
-
     removeBlackList = (user)=>{
         let newBlackLists = {}
         this.props.blackLists.map((u,idx)=>{
@@ -25,7 +20,6 @@ class BlackPanel extends Component {
             list: newBlackLists,
             type: 'jid',
             success: function () {
-                console.log('Remove from black list success.');
                 window.conn.getBlacklist();
             },
             error: function () {

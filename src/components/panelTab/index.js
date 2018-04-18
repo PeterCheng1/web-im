@@ -22,7 +22,19 @@ class PanelTab extends Component {
         }
     }
 
-    componentDidMount() {
+    closeSmallPanel() {
+        this.setState({
+            smallPanel:false
+        })        
+    }
+
+    componentWillMount() {
+        window.EventEmitter3.on('windowClick',()=>{
+            this.closeSmallPanel()
+        })
+        window.EventEmitter3.on('emojiClick',()=>{
+            this.closeSmallPanel()
+        })
     }
 
     tabTransfrom = (type,e)=>{
@@ -35,10 +47,12 @@ class PanelTab extends Component {
         })
     }
 
-    openSamllPanel = ()=>{
+    openSamllPanel = (e)=>{
+        e.stopPropagation()
         this.setState((prevState,props)=>{
             return {smallPanel:!prevState.smallPanel}
         })
+        window.EventEmitter3.emit('btnPanelClick')
     }
 
     logoutAccount =(type,e)=>{
@@ -59,9 +73,9 @@ class PanelTab extends Component {
         let singleClass = classnames('iconfont','icon-chat',{
             active:(pathname === '/chat/single/' ? true : false)
         })
-        let groupClass = classnames('iconfont','icon-LC_icon_chat_fill',{
-            active:(pathname === '/chat/group/' ? true : false)            
-        })
+        // let groupClass = classnames('iconfont','icon-LC_icon_chat_fill',{
+        //     active:(pathname === '/chat/group/' ? true : false)            
+        // })
         let personalClass = classnames('iconfont',' icon-information',{
             active:(pathname === '/chat/personal/' ? true : false)            
         })

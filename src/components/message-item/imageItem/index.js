@@ -5,9 +5,6 @@ import { Spin, Icon } from 'antd';
 
 @safeRender 
 class ImageItem extends Component {
-    constructor(props) {
-        super(props);
-    }
     render () {
         let {imageUrl} = this.props;
         return (

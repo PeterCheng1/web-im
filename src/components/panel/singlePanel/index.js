@@ -54,7 +54,6 @@ class SinglePanel extends Component {
                 }
             }
             setTimeout(()=>{
-                console.log(message.get(user)[0].singleRoom)
                 this.props.noReadMsgChange(SINGLE_NO_READ_MESSAGE_NUM,{username:message.get(user)[0].singleRoom,num:messageNum.length})   
             },40)
         }

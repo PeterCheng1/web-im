@@ -10,9 +10,9 @@ import SinglePanel from '@components/panel/singlePanel/index.js'
 import GroupPanel from '@components/panel/groupPanel/index.js'
 import classnames from 'classnames';
 import {createAction} from '@assets/js/create.js';
-import {FRIEND_SUBSCRIBE_ADD,FRIEND_SUBSCRIBE_REMOVE} from '@data/actions/actionTypes.js';
+import {FRIEND_SUBSCRIBE_ADD} from '@data/actions/actionTypes.js';
 import {BLACK_LISTS_UPDATE} from '@data/actions/actionTypes.js';
-import {FRIEND_LISTS_ADD,FRIEND_LISTS_REMOVE,FRIEND_LISTS_UPDATE} from '@data/actions/actionTypes.js';
+import {FRIEND_LISTS_ADD} from '@data/actions/actionTypes.js';
 import {MESSAGE_LISTS_UPDATE,MESSAGE_LISTS_STATE_UPDATE} from '@data/actions/actionTypes.js';
 import {connect} from 'react-redux';
 @safeRender

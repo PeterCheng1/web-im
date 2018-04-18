@@ -3,7 +3,7 @@ import {safeRender} from '@assets/js/safeRender'
 import './index.css';
 import DefalutPanel from '@components/panel/defalutPanel/index.js';
 import SubscribePanel from '@components/panel/subscribePanel/index.js'
-import GroupInvitePanel from '@components/panel/groupInvitePanel/index.js'
+// import GroupInvitePanel from '@components/panel/groupInvitePanel/index.js'
 import BlackPanel from '@components/panel/blackPanel/index.js'
 import classnames from 'classnames';
 import {connect} from 'react-redux'

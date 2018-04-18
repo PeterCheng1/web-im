@@ -19,6 +19,20 @@ import './App.css';
 
 @safeRender
 class App extends Component {
+  constructor(props){
+    super(props);
+    console.log(window.EventEmitter3)
+  }
+
+  componentDidMount() {
+    this.windowClickEventBind()
+  }
+
+  windowClickEventBind() {
+    window.addEventListener('click',()=>{
+      window.EventEmitter3.emit('windowClick')
+    })
+  }
   render() {
     return (
       <Provider store={store}>
