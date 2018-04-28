@@ -56,6 +56,7 @@ class PanelTab extends Component {
     }
 
     logoutAccount =(type,e)=>{
+        e.stopPropagation()
         hashHistory.push({
             pathname:'/'
         })
