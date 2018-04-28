@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route,hashHistory } from 'react-router'
+import { Router, Route,hashHistory,browserHistory } from 'react-router'
 import {safeRender} from '@assets/js/safeRender'
 import LoginContainer from './containers/loginContainer/index'
 import ChatContainer from './containers/chatContainer/index'
