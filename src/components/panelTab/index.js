@@ -56,10 +56,10 @@ class PanelTab extends Component {
     }
 
     logoutAccount =(type,e)=>{
-        window.conn.close();
         hashHistory.push({
             pathname:'/'
         })
+        window.conn.close();
     }
 
     openModel=(type,e)=>{

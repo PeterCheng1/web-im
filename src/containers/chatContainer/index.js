@@ -15,6 +15,7 @@ import {BLACK_LISTS_UPDATE} from '@data/actions/actionTypes.js';
 import {FRIEND_LISTS_ADD} from '@data/actions/actionTypes.js';
 import {MESSAGE_LISTS_UPDATE,MESSAGE_LISTS_STATE_UPDATE} from '@data/actions/actionTypes.js';
 import {connect} from 'react-redux';
+import {hashHistory} from 'react-router'
 @safeRender
 @connect(state=>{
     return {
@@ -53,6 +54,15 @@ class ChatContainer extends Component {
         this.state = {
             hadGetFriendLists:false
         }
+    }
+
+    componentWillMount() {
+        if(!window.conn.token) {
+            hashHistory.push({
+                pathname:'/'
+            })
+            message.error('页面被刷新，请重新登陆！');
+          }
     }
 
     componentDidMount() {
@@ -118,7 +128,15 @@ class ChatContainer extends Component {
                 // console.log(message,'audio')
             },
             onError:(error)=>{
-                message.error('链接失败，请等候，或者重新登陆！！')
+                if(error.conflict && error.type ===8) {
+                    message.error('账号登陆冲突，可能被其他人登陆')
+                    hashHistory.push({
+                        pathname:'/'
+                    })
+                }else{
+                    message.error('链接失败，请等候，或者重新登陆！！')
+                    
+                }
                 console.log(error);
             },
             onReceivedMessage:(message)=>{

@@ -6,6 +6,7 @@ import ChatContainer from './containers/chatContainer/index'
 import 'antd/dist/antd.css';  // or 'antd/dist/antd.less'
 import {Provider} from 'react-redux';
 import store from './data/create'
+import { message } from 'antd';
 import './App.css';
 
 /*
@@ -19,10 +20,6 @@ import './App.css';
 
 @safeRender
 class App extends Component {
-  constructor(props){
-    super(props);
-    console.log(window.EventEmitter3)
-  }
 
   componentDidMount() {
     this.windowClickEventBind()

@@ -47,11 +47,11 @@ class Sign extends Component {
                 loginning:true
             })
           registerUser(options).then(r=>{
-              message.success('注册成功') 
-              this.props.onRegisterSuccess()
-              this.setState({
-                    loginning:false
-                })
+            message.success('注册成功') 
+            this.setState({
+                loginning:false
+            })
+            this.props.onRegisterSuccess()
           }).catch(e=>{
               let {error} = JSON.parse(e.data)
               switch(error){
